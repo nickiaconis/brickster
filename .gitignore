@@ -18,3 +18,7 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+
+# Eagle generated files
+*.s#[0-9]*
+eagle.epf
