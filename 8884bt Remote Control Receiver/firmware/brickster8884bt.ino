@@ -40,17 +40,17 @@
 #define uSecCyc 870
 
 // Motor control A
-#define mcPin1A 10 // 4
-#define mcPin2A 9  // 5
-#define pwmPinA 8  // 2
+#define mcPin1A 10
+#define mcPin2A 9
+#define pwmPinA 8
 #define maxA 7
 int levelA = 0;
 int pwmA = 0;
 
 // Motor control B
-#define mcPin1B 0 // 6
-#define mcPin2B 1 // 7
-#define pwmPinB 3 // 3
+#define mcPin1B 0
+#define mcPin2B 1
+#define pwmPinB 3
 #define maxB 7
 int levelB = 0;
 int pwmB = 0;
@@ -73,18 +73,12 @@ int pwmB = 0;
 #define ffwdB 100 // B full fwd   = d
 #define frevB 104 // B full rev   = h
 
-// Reference: Combined commands
-//   A+B up           = E
-//   A+B down         = J
-//   A up, B down     = I
-//   A down, B up     = F
-//   A brake, B brake = O
-//   A float, B float = p
+// Combine Channel A command with Channel B command using logical OR
 
 // Software serial
-#define rxPin 7 // 0
-#define txPin 2 // 1
-#define baudRate 9600 // 115200
+#define rxPin 7
+#define txPin 2
+#define baudRate 9600
 SoftwareSerial softSerial(rxPin, txPin);
 
 // Miscellanious
@@ -97,16 +91,20 @@ int pwmLevels[8] = {0, 218, 326, 435, 544, 653, 761, 870};
 
 void setup()
 {
+  // serial init
   softSerial.begin(baudRate);
   
+  // channel A init
   pinMode(mcPin1A, OUTPUT);
   pinMode(mcPin2A, OUTPUT);
   pinMode(pwmPinA, OUTPUT);
   
+  // channel B init
   pinMode(mcPin1B, OUTPUT);
   pinMode(mcPin2B, OUTPUT);
   pinMode(pwmPinB, OUTPUT);
-    
+  
+  // bitbanged PWM init
   pwmA = pwmLevels[min(abs(levelA), maxA)];
   pwmB = pwmLevels[min(abs(levelB), maxB)];
 }
@@ -186,7 +184,7 @@ void loop()
     serialRateLimiter = 8;
   }
   
-  // Bitbang the PWM signals (238 bytes - smaller, less-elegant, less-confusing)
+  // Bitbang the PWM signals
   // turn on both channels
   if (pwmA > 0)
     digitalWrite(pwmPinA, HIGH);
@@ -224,36 +222,6 @@ void loop()
     if (pwmA < uSecCyc)
       delayMicroseconds(uSecCyc - pwmA);
   }
-  
-  /* Bitbang the PWM signals (312 bytes - larger, more-elegant, more-confusing)
-  // turn on both channels
-  if (pwmA > 0)
-    digitalWrite(pwmPinA, HIGH);
-  if (pwmB > 0)
-    digitalWrite(pwmPinB, HIGH);
-  pwmMin = min(pwmA, pwmB);
-  pwmMax = max(pwmA, pwmB);
-  // delay the shorter time
-  if (pwmMin > 0)
-    delayMicroseconds(pwmMin);
-  if (pwmA != pwmB)
-  {
-    // turn off first channel
-    if (pwmA == pwmMin && pwmA < uSecCyc)
-      digitalWrite(pwmPinA, LOW);
-    if (pwmB == pwmMin && pwmB < uSecCyc)
-      digitalWrite(pwmPinB, LOW);
-    // finish out the longer delay
-    delayMicroseconds(pwmMax - pwmMin);
-  }
-  // turn off both channels
-  if (pwmA < uSecCyc)
-    digitalWrite(pwmPinA, LOW);
-  if (pwmB < uSecCyc)
-    digitalWrite(pwmPinB, LOW);
-  // finish out the cycle
-  if (pwmMax < uSecCyc)
-    delayMicroseconds(uSecCyc - pwmMax);*/
   
   // Decrement rate limiter
   if (serialRateLimiter)
