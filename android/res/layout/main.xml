@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_momentary"
+    android:orientation="vertical" -->
+<!--
+    <com.codefox421.brickster.EmulatorView android:id="@+id/emulatorView"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_alignParentLeft="true"
+	      />
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_momentary"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/button_red_fwd"
+        android:layout_width="78dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="89dp"
+        android:layout_marginTop="162dp"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/button_red_rev"
+        android:layout_width="78dp"
+        android:layout_height="72dp"
+        android:layout_alignLeft="@+id/button_red_fwd"
+        android:layout_below="@+id/button_red_fwd"
+        android:layout_marginTop="9dp"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/button_blue_fwd"
+        android:layout_width="78dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="24.5dp"
+        android:layout_above="@+id/button_red_rev"
+        android:layout_toRightOf="@+id/button_red_fwd"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/button_blue_rev"
+        android:layout_width="78dp"
+        android:layout_height="72dp"
+        android:layout_alignBottom="@+id/button_red_rev"
+        android:layout_alignLeft="@+id/button_blue_fwd"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+        
+</RelativeLayout>
+
+<!-- /LinearLayout-->
