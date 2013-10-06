@@ -143,6 +143,10 @@ public class BricksTer extends Activity {
     private SharedPreferences mPrefs;
 	
     private MenuItem mMenuItemConnect;
+    
+    private View mRedOn = null;
+    
+    private View mBlueOn = null;
 
     
 	/** Called when the activity is first created. */
@@ -200,14 +204,16 @@ public class BricksTer extends Activity {
 		    public boolean onTouch(View v, MotionEvent event) {
 	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
 		    	byte[] buffer = new byte[1];
-		    	if(event.getAction() == MotionEvent.ACTION_DOWN) {
+		    	if(event.getAction() == MotionEvent.ACTION_DOWN && mRedOn == null) {
 		        	buffer[0] = (byte)'Q'; // full-forward on red-port
 		        	mSerialService.write(buffer);
 		        	mVibrator.vibrate(50);
-		        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+		        	mRedOn = v;
+		        } else if (event.getAction() == MotionEvent.ACTION_UP && mRedOn == v) {
 		        	buffer[0] = (byte)'P'; // float on red-port
 		        	mSerialService.write(buffer);
 		        	mVibrator.vibrate(50);
+		        	mRedOn = null;
 		        }
 	        	return false;
 		    }
@@ -220,14 +226,16 @@ public class BricksTer extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
 				byte[] buffer = new byte[1];
-		    	if(event.getAction() == MotionEvent.ACTION_DOWN) {
+		    	if(event.getAction() == MotionEvent.ACTION_DOWN && mRedOn == null) {
 		        	buffer[0] = (byte)'R'; // full-reverse on red-port
 		        	mSerialService.write(buffer);
 		        	mVibrator.vibrate(50);
-		        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+		        	mRedOn = v;
+		        } else if (event.getAction() == MotionEvent.ACTION_UP && mRedOn == v) {
 		        	buffer[0] = (byte)'P'; // float on red-port
 		        	mSerialService.write(buffer);
 		        	mVibrator.vibrate(50);
+		        	mRedOn = null;
 		        }
 	        	return false;
 			}
@@ -240,14 +248,16 @@ public class BricksTer extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
 				byte[] buffer = new byte[1];
-				if(event.getAction() == MotionEvent.ACTION_DOWN) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN && mBlueOn == null) {
 					buffer[0] = (byte)'d'; // full-forward on blue-port
 					mSerialService.write(buffer);
 					mVibrator.vibrate(50);
-				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					mBlueOn = v;
+				} else if (event.getAction() == MotionEvent.ACTION_UP && mBlueOn == v) {
 					buffer[0] = (byte)'`'; // float on blue-port
 					mSerialService.write(buffer);
 					mVibrator.vibrate(50);
+					mBlueOn = null;
 				}
 				return false;
 			}
@@ -260,14 +270,16 @@ public class BricksTer extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
 				byte[] buffer = new byte[1];
-				if(event.getAction() == MotionEvent.ACTION_DOWN) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN && mBlueOn == null) {
 					buffer[0] = (byte)'h'; // full-reverse on blue-port
 					mSerialService.write(buffer);
 					mVibrator.vibrate(50);
-				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					mBlueOn = v;
+				} else if (event.getAction() == MotionEvent.ACTION_UP && mBlueOn == v) {
 					buffer[0] = (byte)'`'; // float on blue-port
 					mSerialService.write(buffer);
 					mVibrator.vibrate(50);
+					mBlueOn = null;
 				}
 				return false;
 			}
