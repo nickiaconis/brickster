@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -281,6 +281,12 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <text x="-3.5" y="0" size="0.6096" layer="25" rot="R90" align="bottom-center">&gt;NAME</text>
 <text x="3.5" y="0" size="0.6096" layer="25" rot="R90" align="top-center">&gt;VALUE</text>
 </package>
+<package name="CON_PF">
+<pad name="9V" x="-1.8" y="0" drill="0.3302" shape="octagon"/>
+<pad name="C2" x="-0.6" y="0" drill="0.3302"/>
+<pad name="C1" x="0.6" y="0" drill="0.3302"/>
+<pad name="GND" x="1.8" y="0" drill="0.3302"/>
+</package>
 </packages>
 <symbols>
 <symbol name="IC_ATTINY_X4A">
@@ -434,6 +440,45 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <pin name="IN" x="-7.62" y="0" visible="off" length="short" direction="in"/>
 <pin name="GND" x="0" y="-7.62" visible="off" length="short" direction="in" rot="R90"/>
 <pin name="OUT" x="7.62" y="0" visible="off" length="short" direction="out" rot="R180"/>
+</symbol>
+<symbol name="CON_PF">
+<pin name="P$1" x="-5.08" y="2.54" visible="pad" length="middle"/>
+<pin name="P$2" x="-5.08" y="0" visible="pad" length="middle"/>
+<pin name="P$3" x="-5.08" y="-2.54" visible="pad" length="middle"/>
+<pin name="P$4" x="-5.08" y="-5.08" visible="pad" length="middle"/>
+<wire x1="0" y1="-7.62" x2="0" y2="5.08" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="5.08" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="5.08" y1="-7.62" x2="0" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="1.27" y1="2.54" x2="3.81" y2="2.54" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="3.81" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-2.54" x2="3.81" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-5.08" x2="3.81" y2="-5.08" width="0.254" layer="94"/>
+<polygon width="0.254" layer="94">
+<vertex x="3.81" y="-5.334"/>
+<vertex x="2.54" y="-5.334"/>
+<vertex x="2.54" y="-4.826"/>
+<vertex x="3.81" y="-4.826"/>
+</polygon>
+<polygon width="0.254" layer="94">
+<vertex x="3.81" y="-2.794"/>
+<vertex x="2.54" y="-2.794"/>
+<vertex x="2.54" y="-2.286"/>
+<vertex x="3.81" y="-2.286"/>
+</polygon>
+<polygon width="0.254" layer="94">
+<vertex x="3.81" y="-0.254"/>
+<vertex x="2.54" y="-0.254"/>
+<vertex x="2.54" y="0.254"/>
+<vertex x="3.81" y="0.254"/>
+</polygon>
+<polygon width="0.254" layer="94">
+<vertex x="3.81" y="2.286"/>
+<vertex x="2.54" y="2.286"/>
+<vertex x="2.54" y="2.794"/>
+<vertex x="3.81" y="2.794"/>
+</polygon>
+<text x="5.08" y="5.588" size="1.778" layer="94" align="bottom-right">&gt;NAME</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -633,6 +678,24 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <connect gate="G$1" pin="GND" pad="1"/>
 <connect gate="G$1" pin="IN" pad="3"/>
 <connect gate="G$1" pin="OUT" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="CON_PF" prefix="J">
+<gates>
+<gate name="G$1" symbol="CON_PF" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="CON_PF">
+<connects>
+<connect gate="G$1" pin="P$1" pad="9V"/>
+<connect gate="G$1" pin="P$2" pad="C1"/>
+<connect gate="G$1" pin="P$3" pad="C2"/>
+<connect gate="G$1" pin="P$4" pad="GND"/>
 </connects>
 <technologies>
 <technology name=""/>
