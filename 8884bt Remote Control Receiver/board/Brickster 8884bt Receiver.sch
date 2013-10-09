@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -4459,7 +4459,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <text x="0" y="-1" size="0.6096" layer="27" align="top-center">&gt;VALUE</text>
 </package>
 <package name="CON_PF">
-<pad name="9V" x="-1.8" y="0" drill="0.3302" shape="octagon"/>
+<pad name="9V" x="-1.8" y="0" drill="0.3302" shape="square"/>
 <pad name="C2" x="-0.6" y="0" drill="0.3302"/>
 <pad name="C1" x="0.6" y="0" drill="0.3302"/>
 <pad name="GND" x="1.8" y="0" drill="0.3302"/>
