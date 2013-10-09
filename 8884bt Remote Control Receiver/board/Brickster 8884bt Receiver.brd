@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -695,8 +695,8 @@ Please make sure your boards conform to these design rules.</description>
 <element name="D1" library="brickster" package="CHIP-LTST" value="Blue/Orange" x="18.7198" y="1.8288" smashed="yes">
 <attribute name="NAME" x="17.7198" y="1.8288" size="0.6096" layer="25" rot="R90" align="bottom-center"/>
 </element>
-<element name="D2" library="brickster" package="SOD80" value="D" x="4.2926" y="4.953" smashed="yes" rot="MR270">
-<attribute name="NAME" x="3.2926" y="4.953" size="0.6096" layer="26" rot="MR270" align="bottom-center"/>
+<element name="D2" library="brickster" package="SOD80" value="D" x="2.7432" y="4.699" smashed="yes" rot="MR180">
+<attribute name="NAME" x="2.7432" y="3.699" size="0.6096" layer="26" rot="MR180" align="bottom-center"/>
 </element>
 <element name="J2" library="brickster" package="CON_PF" value="CON_PF" x="14.3764" y="0.9398"/>
 <element name="J3" library="brickster" package="CON_PF" value="CON_PF" x="5.9436" y="0.9398" rot="R180"/>
@@ -1083,7 +1083,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="21.1542" y1="9.8298" x2="21.1542" y2="11.8412" width="0.1524" layer="1"/>
 <wire x1="20.5042" y1="11.8412" x2="19.3086" y2="11.8412" width="0.1524" layer="1"/>
 <wire x1="19.3086" y1="11.8412" x2="19.3086" y2="11.4534" width="0.1524" layer="1"/>
-<wire x1="4.2926" y1="3.403" x2="4.2926" y2="2.2606" width="0.1524" layer="16"/>
+<wire x1="4.2932" y1="4.699" x2="4.2926" y2="2.2606" width="0.1524" layer="16"/>
 <wire x1="27.054" y1="8.7884" x2="27.054" y2="9.8298" width="0.1524" layer="1"/>
 </signal>
 <signal name="BLUE">
@@ -1135,8 +1135,8 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="J1" pad="2"/>
 <contactref element="D2" pad="1"/>
 <wire x1="1.6764" y1="19.304" x2="0.508" y2="19.304" width="0.1524" layer="16"/>
-<wire x1="0.508" y1="19.304" x2="0.508" y2="6.503" width="0.1524" layer="16"/>
-<wire x1="0.508" y1="6.503" x2="4.2926" y2="6.503" width="0.1524" layer="16"/>
+<wire x1="0.508" y1="19.304" x2="0.508" y2="4.699" width="0.1524" layer="16"/>
+<wire x1="0.508" y1="4.699" x2="1.1932" y2="4.699" width="0.1524" layer="16"/>
 </signal>
 </signals>
 <errors>
@@ -1147,14 +1147,14 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="18,29,fc20fc7cce030caa"/>
 <approved hash="18,29,ec73ca75d4bbb111"/>
 <approved hash="18,29,d9f7c94dd7b3879d"/>
-<approved hash="18,29,72adbbbc0d7bfbf1"/>
 <approved hash="18,29,02c38e5cc6a24e44"/>
+<approved hash="18,29,72adbbbc0d7bfbf1"/>
 <approved hash="18,29,b07baae353591fc0"/>
 <approved hash="18,29,f57453b3c63976fd"/>
 <approved hash="18,29,c6916a8a6873c4f8"/>
+<approved hash="18,29,5261b3acdfea5924"/>
 <approved hash="18,29,dfe4ee60682e5fa6"/>
 <approved hash="18,29,5fe42e60282e5fa6"/>
-<approved hash="18,29,5261b3acdfea5924"/>
 <approved hash="18,29,5371fce9fe9450a2"/>
 <approved hash="18,29,2df1e8aa80cf9431"/>
 <approved hash="18,29,fd0605fe058bfd73"/>
@@ -1164,9 +1164,9 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="18,29,1e11b2596719ef2b"/>
 <approved hash="18,29,443322b022ab4428"/>
 <approved hash="18,29,81266da56da08123"/>
+<approved hash="18,29,e321639fa45684eb"/>
 <approved hash="18,29,3ac93c2df421facc"/>
 <approved hash="18,29,5dfd414b92bae9f4"/>
-<approved hash="18,29,e321639fa45684eb"/>
 <approved hash="18,29,07b605fc3a0139cb"/>
 <approved hash="18,29,3aba03cff21b3155"/>
 <approved hash="18,29,3ba2005cf16e3075"/>
