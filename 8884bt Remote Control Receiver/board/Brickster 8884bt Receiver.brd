@@ -112,8 +112,8 @@
 <rectangle x1="0" y1="0" x2="28.7528" y2="0.381" layer="49"/>
 <rectangle x1="0" y1="0" x2="0.381" y2="20.7772" layer="49"/>
 <wire x1="0" y1="19.9644" x2="0" y2="0.8128" width="0" layer="20"/>
-<dimension x1="0" y1="0" x2="28.7528" y2="0" x3="14.3764" y3="-3.1242" textsize="1.778" layer="49" width="0.1"/>
-<dimension x1="0" y1="0" x2="0" y2="20.7772" x3="-1.3462" y3="10.3886" textsize="1.778" layer="49" width="0.1"/>
+<dimension x1="0" y1="0" x2="28.7528" y2="0" x3="14.3764" y3="-3.1242" textsize="1.778" layer="48" width="0.1"/>
+<dimension x1="0" y1="0" x2="0" y2="20.7772" x3="-1.3462" y3="10.3886" textsize="1.778" layer="48" width="0.1"/>
 <text x="5.2578" y="12.7254" size="0.6096" layer="21" rot="R90" align="top-center">BricksTer
 8884bt</text>
 <text x="2.1082" y="2.1082" size="0.4064" layer="22" rot="MR0" align="center">rev. 1</text>
@@ -135,13 +135,13 @@
 <wire x1="10.3759" y1="20.7772" x2="18.3769" y2="20.7772" width="0" layer="20"/>
 <wire x1="0.8128" y1="20.7772" x2="2.3749" y2="20.7772" width="0" layer="20"/>
 <wire x1="27.94" y1="20.7772" x2="26.3779" y2="20.7772" width="0" layer="20"/>
-<dimension x1="0" y1="20.7772" x2="3.2004" y2="28.7782" x3="-1.3462" y3="24.7777" textsize="1.778" layer="49" dtype="vertical" width="0.1"/>
-<dimension x1="2.3749" y1="27.9654" x2="10.3759" y2="27.9654" x3="6.3754" y3="29.5148" textsize="1.778" layer="49" dtype="horizontal" width="0.1"/>
-<dimension x1="10.3759" y1="27.9654" x2="18.3769" y2="27.9654" x3="14.3764" y3="29.5148" textsize="1.778" layer="49" dtype="horizontal" width="0.1"/>
-<dimension x1="18.3769" y1="27.9654" x2="26.3779" y2="27.9654" x3="22.3774" y3="29.4894" textsize="1.778" layer="49" dtype="horizontal" width="0.1"/>
+<dimension x1="0" y1="20.7772" x2="3.2004" y2="28.7782" x3="-1.3462" y3="24.7777" textsize="1.778" layer="48" dtype="vertical" width="0.1"/>
+<dimension x1="2.3749" y1="27.9654" x2="10.3759" y2="27.9654" x3="6.3754" y3="29.5148" textsize="1.778" layer="48" dtype="horizontal" width="0.1"/>
+<dimension x1="10.3759" y1="27.9654" x2="18.3769" y2="27.9654" x3="14.3764" y3="29.5148" textsize="1.778" layer="48" dtype="horizontal" width="0.1"/>
+<dimension x1="18.3769" y1="27.9654" x2="26.3779" y2="27.9654" x3="22.3774" y3="29.4894" textsize="1.778" layer="48" dtype="horizontal" width="0.1"/>
 <hole x="6.3754" y="24.7777" drill="4.75"/>
 <hole x="22.3774" y="24.7777" drill="4.75"/>
-<dimension x1="8.7504" y1="24.7777" x2="4.0004" y2="24.7777" x3="4.0004" y3="24.7777" textsize="1.778" layer="49" dtype="diameter" width="0.1"/>
+<dimension x1="8.7504" y1="24.7777" x2="4.0004" y2="24.7777" x3="4.0004" y3="24.7777" textsize="1.778" layer="48" dtype="diameter" width="0.1"/>
 </plain>
 <libraries>
 <library name="brickster">
@@ -654,10 +654,10 @@ Please make sure your boards conform to these design rules.</description>
 <element name="B2" library="brickster" package="MBS-2" value="B_CDBHM240L-HF" x="11.3792" y="10.8204" smashed="yes" rot="R90">
 <attribute name="NAME" x="13.7506" y="10.8204" size="0.6096" layer="25" rot="R270" align="bottom-center"/>
 </element>
-<element name="IC2" library="brickster" package="SOT223" value="IC_RT9164A" x="10.1854" y="4.4704" smashed="yes" rot="R180">
+<element name="U3" library="brickster" package="SOT223" value="IC_RT9164A" x="10.1854" y="4.4704" smashed="yes" rot="R180">
 <attribute name="NAME" x="13.7108" y="5.6388" size="0.6096" layer="25" rot="R270" align="bottom-center"/>
 </element>
-<element name="U$2" library="SparkFun-RF" package="RN41" value="BLUETOOTH-RN41&quot;" x="16.5354" y="12.8524" rot="MR180"/>
+<element name="U4" library="SparkFun-RF" package="RN41" value="BLUETOOTH-RN41&quot;" x="16.5354" y="12.8524" rot="MR180"/>
 <element name="U1" library="brickster" package="14S1" value="IC_ATTINY_X4A" x="14.478" y="16.6116" smashed="yes" rot="R270">
 <attribute name="NAME" x="9.3514" y="15.4178" size="0.6096" layer="25" rot="R270" align="bottom-center"/>
 </element>
@@ -705,10 +705,10 @@ Please make sure your boards conform to these design rules.</description>
 </elements>
 <signals>
 <signal name="GND">
-<contactref element="U$2" pad="12"/>
-<contactref element="U$2" pad="1"/>
-<contactref element="U$2" pad="28"/>
-<contactref element="U$2" pad="29"/>
+<contactref element="U4" pad="12"/>
+<contactref element="U4" pad="1"/>
+<contactref element="U4" pad="28"/>
+<contactref element="U4" pad="29"/>
 <contactref element="U2" pad="3"/>
 <contactref element="U2" pad="4"/>
 <contactref element="U2" pad="9"/>
@@ -721,7 +721,7 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="U1" pad="14"/>
 <contactref element="B3" pad="-"/>
 <contactref element="B4" pad="-"/>
-<contactref element="IC2" pad="1"/>
+<contactref element="U3" pad="1"/>
 <contactref element="B1" pad="-"/>
 <contactref element="B2" pad="-"/>
 <contactref element="C1" pad="2"/>
@@ -778,12 +778,12 @@ Please make sure your boards conform to these design rules.</description>
 <via x="12.1412" y="2.8702" extent="1-16" drill="0.3302"/>
 </signal>
 <signal name="N$7">
-<contactref element="U$2" pad="15"/>
-<contactref element="U$2" pad="16"/>
+<contactref element="U4" pad="15"/>
+<contactref element="U4" pad="16"/>
 <wire x1="19.5354" y1="6.2524" x2="20.7354" y2="6.2524" width="0.1524" layer="16"/>
 </signal>
 <signal name="ATTX/BTRX">
-<contactref element="U$2" pad="13"/>
+<contactref element="U4" pad="13"/>
 <contactref element="U1" pad="6"/>
 <wire x1="23.1354" y1="6.2524" x2="23.237" y2="5.965" width="0.1524" layer="16"/>
 <wire x1="23.237" y1="5.965" x2="20.5232" y2="3.2512" width="0.1524" layer="16"/>
@@ -795,7 +795,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="12.573" y1="18.548" x2="11.938" y2="19.4116" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$15">
-<contactref element="U$2" pad="4"/>
+<contactref element="U4" pad="4"/>
 <contactref element="R1" pad="1"/>
 <wire x1="8.7122" y1="18.415" x2="13.5354" y2="18.415" width="0.1524" layer="16"/>
 <wire x1="13.5354" y1="18.415" x2="13.5354" y2="19.4524" width="0.1524" layer="16"/>
@@ -973,7 +973,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="18.2948" y1="2.5538" x2="18.6889" y2="3.4925" width="0.1524" layer="1"/>
 </signal>
 <signal name="ORANGE">
-<contactref element="U$2" pad="19"/>
+<contactref element="U4" pad="19"/>
 <contactref element="R2" pad="2"/>
 <wire x1="19.5889" y1="3.4925" x2="20.32" y2="3.5306" width="0.1524" layer="1"/>
 <wire x1="20.32" y1="3.5306" x2="20.32" y2="4.8514" width="0.1524" layer="1"/>
@@ -983,7 +983,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="15.9354" y1="5.0038" x2="15.9354" y2="6.2524" width="0.1524" layer="16"/>
 </signal>
 <signal name="ATRX/BTTX">
-<contactref element="U$2" pad="14"/>
+<contactref element="U4" pad="14"/>
 <contactref element="U1" pad="11"/>
 <wire x1="21.9354" y1="6.2524" x2="21.9354" y2="5.2222" width="0.1524" layer="16"/>
 <wire x1="21.9354" y1="5.2222" x2="20.5486" y2="3.8354" width="0.1524" layer="16"/>
@@ -996,7 +996,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="12.8778" y1="12.2114" x2="14.478" y2="13.8116" width="0.1524" layer="1"/>
 </signal>
 <signal name="3.3V">
-<contactref element="IC2" pad="2"/>
+<contactref element="U3" pad="2"/>
 <contactref element="C2" pad="1"/>
 <wire x1="18.288" y1="20.066" x2="10.1854" y2="20.066" width="0.1524" layer="1"/>
 <wire x1="10.1854" y1="20.066" x2="10.1854" y2="7.8704" width="0.1524" layer="1"/>
@@ -1009,8 +1009,8 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="C4" pad="1"/>
 <contactref element="U2" pad="19"/>
 <contactref element="U1" pad="1"/>
-<contactref element="U$2" pad="11"/>
-<contactref element="U$2" pad="5"/>
+<contactref element="U4" pad="11"/>
+<contactref element="U4" pad="5"/>
 <wire x1="10.1854" y1="6.0706" x2="10.1854" y2="7.8704" width="0.6096" layer="1"/>
 <wire x1="19.939" y1="20.0588" x2="19.939" y2="17.3228" width="0.1524" layer="1"/>
 <via x="19.939" y="17.3228" extent="1-16" drill="0.3302"/>
@@ -1035,7 +1035,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="10.1854" y1="6.0452" x2="10.1854" y2="1.7272" width="0.6096" layer="1"/>
 </signal>
 <signal name="VIN">
-<contactref element="IC2" pad="3"/>
+<contactref element="U3" pad="3"/>
 <contactref element="B1" pad="+"/>
 <contactref element="B2" pad="+"/>
 <contactref element="C1" pad="1"/>
@@ -1090,7 +1090,7 @@ Please make sure your boards conform to these design rules.</description>
 <signal name="BLUE">
 <contactref element="D1" pad="1"/>
 <contactref element="D1" pad="4"/>
-<contactref element="U$2" pad="21"/>
+<contactref element="U4" pad="21"/>
 <wire x1="19.1448" y1="2.5538" x2="19.1448" y2="2.5527" width="0.1524" layer="1"/>
 <wire x1="19.1448" y1="2.5527" x2="19.1389" y2="2.5527" width="0.1524" layer="1"/>
 <wire x1="19.1389" y1="2.5527" x2="19.1389" y2="4.0259" width="0.1524" layer="1"/>

@@ -4894,8 +4894,8 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <parts>
 <part name="B1" library="brickster" deviceset="B_CDBHM240L-HF" device=""/>
 <part name="B2" library="brickster" deviceset="B_CDBHM240L-HF" device=""/>
-<part name="IC2" library="brickster" deviceset="IC_RT9164A" device=""/>
-<part name="U$2" library="SparkFun-RF" deviceset="BLUETOOTH-RN41" device="&quot;"/>
+<part name="U3" library="brickster" deviceset="IC_RT9164A" device=""/>
+<part name="U4" library="SparkFun-RF" deviceset="BLUETOOTH-RN41" device="&quot;"/>
 <part name="U1" library="brickster" deviceset="IC_ATTINY_X4A" device=""/>
 <part name="R2" library="brickster" deviceset="R" device="" value="1k"/>
 <part name="U2" library="brickster" deviceset="IC_TB6612FNG" device=""/>
@@ -4939,10 +4939,16 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <text x="342.9" y="27.94" size="2.54" layer="97">1</text>
 </plain>
 <instances>
-<instance part="B1" gate="G$1" x="289.56" y="180.34"/>
-<instance part="B2" gate="G$1" x="289.56" y="149.86" rot="MR180"/>
-<instance part="IC2" gate="G$1" x="317.5" y="180.34"/>
-<instance part="U$2" gate="G$1" x="152.4" y="101.6"/>
+<instance part="B1" gate="G$1" x="289.56" y="180.34" smashed="yes">
+<attribute name="NAME" x="292.1" y="177.8" size="1.778" layer="95" align="top-left"/>
+</instance>
+<instance part="B2" gate="G$1" x="289.56" y="149.86" smashed="yes" rot="MR180">
+<attribute name="NAME" x="292.1" y="147.32" size="1.778" layer="95" rot="MR180"/>
+</instance>
+<instance part="U3" gate="G$1" x="317.5" y="180.34" smashed="yes">
+<attribute name="NAME" x="320.04" y="172.72" size="1.778" layer="95"/>
+</instance>
+<instance part="U4" gate="G$1" x="152.4" y="101.6"/>
 <instance part="U1" gate="G$1" x="144.78" y="175.26"/>
 <instance part="R2" gate="G$1" x="332.74" y="129.54" rot="R90"/>
 <instance part="U2" gate="G$1" x="276.86" y="81.28"/>
@@ -4957,11 +4963,17 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <instance part="GND4" gate="1" x="269.24" y="104.14"/>
 <instance part="GND5" gate="1" x="297.18" y="60.96"/>
 <instance part="GND8" gate="1" x="175.26" y="66.04"/>
-<instance part="J1" gate="G$1" x="198.12" y="134.62"/>
+<instance part="J1" gate="G$1" x="198.12" y="134.62" smashed="yes">
+<attribute name="NAME" x="193.802" y="140.462" size="1.778" layer="95"/>
+</instance>
 <instance part="GND9" gate="1" x="215.9" y="121.92"/>
 <instance part="GND10" gate="1" x="116.84" y="154.94"/>
-<instance part="B3" gate="G$1" x="233.68" y="185.42" rot="MR0"/>
-<instance part="B4" gate="G$1" x="233.68" y="154.94" rot="MR0"/>
+<instance part="B3" gate="G$1" x="233.68" y="185.42" smashed="yes" rot="MR0">
+<attribute name="NAME" x="236.22" y="187.96" size="1.778" layer="95" rot="MR0" align="bottom-right"/>
+</instance>
+<instance part="B4" gate="G$1" x="233.68" y="154.94" smashed="yes" rot="MR0">
+<attribute name="NAME" x="236.22" y="157.48" size="1.778" layer="95" rot="MR0" align="bottom-right"/>
+</instance>
 <instance part="GND11" gate="1" x="241.3" y="180.34"/>
 <instance part="GND12" gate="1" x="241.3" y="149.86"/>
 <instance part="SUPPLY1" gate="G$1" x="330.2" y="182.88"/>
@@ -4974,8 +4986,12 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <instance part="C1" gate="G$1" x="304.8" y="172.72"/>
 <instance part="C2" gate="G$1" x="330.2" y="175.26"/>
 <instance part="C5" gate="G$1" x="269.24" y="114.3"/>
-<instance part="D1" gate="G$1" x="337.82" y="114.3" rot="R90"/>
-<instance part="D1" gate="G$2" x="327.66" y="111.76" rot="R270"/>
+<instance part="D1" gate="G$1" x="337.82" y="114.3" smashed="yes" rot="R90">
+<attribute name="NAME" x="340.36" y="109.22" size="1.778" layer="97" rot="R90" align="top-left"/>
+</instance>
+<instance part="D1" gate="G$2" x="327.66" y="111.76" smashed="yes" rot="R270">
+<attribute name="NAME" x="325.12" y="116.84" size="1.778" layer="97" rot="R270" align="top-left"/>
+</instance>
 <instance part="D2" gate="G$1" x="220.98" y="137.16"/>
 <instance part="GND6" gate="1" x="147.32" y="35.56"/>
 <instance part="GND7" gate="1" x="182.88" y="35.56"/>
@@ -4989,18 +5005,18 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <nets>
 <net name="GND" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="GND1"/>
-<pinref part="U$2" gate="G$1" pin="GND"/>
+<pinref part="U4" gate="G$1" pin="GND1"/>
+<pinref part="U4" gate="G$1" pin="GND"/>
 <wire x1="175.26" y1="86.36" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="83.82" x2="175.26" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="83.82" x2="172.72" y2="83.82" width="0.1524" layer="91"/>
 <junction x="175.26" y="83.82"/>
 <wire x1="175.26" y1="76.2" x2="175.26" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="GND2"/>
+<pinref part="U4" gate="G$1" pin="GND2"/>
 <wire x1="172.72" y1="76.2" x2="175.26" y2="76.2" width="0.1524" layer="91"/>
 <junction x="175.26" y="76.2"/>
 <wire x1="175.26" y1="73.66" x2="175.26" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="GND3"/>
+<pinref part="U4" gate="G$1" pin="GND3"/>
 <wire x1="172.72" y1="73.66" x2="175.26" y2="73.66" width="0.1524" layer="91"/>
 <junction x="175.26" y="73.66"/>
 <wire x1="175.26" y1="68.58" x2="175.26" y2="73.66" width="0.1524" layer="91"/>
@@ -5072,7 +5088,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <segment>
 <wire x1="284.48" y1="180.34" x2="281.94" y2="180.34" width="0.1524" layer="91"/>
 <wire x1="281.94" y1="180.34" x2="281.94" y2="165.1" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="G$1" pin="GND"/>
+<pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="281.94" y1="165.1" x2="281.94" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="281.94" y1="149.86" x2="284.48" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="317.5" y1="172.72" x2="317.5" y2="165.1" width="0.1524" layer="91"/>
@@ -5118,16 +5134,16 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="UARTRTS"/>
+<pinref part="U4" gate="G$1" pin="UARTRTS"/>
 <wire x1="132.08" y1="101.6" x2="129.54" y2="101.6" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="101.6" x2="129.54" y2="99.06" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="UARTCTS"/>
+<pinref part="U4" gate="G$1" pin="UARTCTS"/>
 <wire x1="129.54" y1="99.06" x2="132.08" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ATTX/BTRX" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="UARTRX"/>
+<pinref part="U4" gate="G$1" pin="UARTRX"/>
 <wire x1="132.08" y1="106.68" x2="111.76" y2="106.68" width="0.1524" layer="91"/>
 <label x="114.3" y="106.68" size="1.778" layer="95"/>
 </segment>
@@ -5139,7 +5155,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 </net>
 <net name="N$15" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="PIO7"/>
+<pinref part="U4" gate="G$1" pin="PIO7"/>
 <wire x1="172.72" y1="101.6" x2="177.8" y2="101.6" width="0.1524" layer="91"/>
 <pinref part="R1" gate="G$1" pin="1"/>
 </segment>
@@ -5368,7 +5384,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 </net>
 <net name="ORANGE" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="PIO2"/>
+<pinref part="U4" gate="G$1" pin="PIO2"/>
 <wire x1="172.72" y1="114.3" x2="187.96" y2="114.3" width="0.1524" layer="91"/>
 <label x="175.26" y="114.3" size="1.778" layer="95"/>
 </segment>
@@ -5381,7 +5397,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 </net>
 <net name="ATRX/BTTX" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="UARTTX"/>
+<pinref part="U4" gate="G$1" pin="UARTTX"/>
 <wire x1="132.08" y1="104.14" x2="111.76" y2="104.14" width="0.1524" layer="91"/>
 <label x="114.3" y="104.14" size="1.778" layer="95"/>
 </segment>
@@ -5394,7 +5410,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <net name="3.3V" class="0">
 <segment>
 <wire x1="330.2" y1="177.8" x2="330.2" y2="180.34" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="G$1" pin="OUT"/>
+<pinref part="U3" gate="G$1" pin="OUT"/>
 <wire x1="325.12" y1="180.34" x2="330.2" y2="180.34" width="0.1524" layer="91"/>
 <pinref part="SUPPLY1" gate="G$1" pin="3.3V"/>
 <wire x1="330.2" y1="180.34" x2="330.2" y2="182.88" width="0.1524" layer="91"/>
@@ -5426,10 +5442,10 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <label x="114.3" y="190.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VDD"/>
+<pinref part="U4" gate="G$1" pin="VDD"/>
 <wire x1="119.38" y1="129.54" x2="129.54" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="129.54" x2="132.08" y2="129.54" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="RESET"/>
+<pinref part="U4" gate="G$1" pin="RESET"/>
 <wire x1="129.54" y1="129.54" x2="129.54" y2="127" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="127" x2="132.08" y2="127" width="0.1524" layer="91"/>
 <junction x="129.54" y="129.54"/>
@@ -5445,7 +5461,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <segment>
 <wire x1="294.64" y1="149.86" x2="297.18" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="297.18" y1="149.86" x2="297.18" y2="180.34" width="0.1524" layer="91"/>
-<pinref part="IC2" gate="G$1" pin="IN"/>
+<pinref part="U3" gate="G$1" pin="IN"/>
 <wire x1="294.64" y1="180.34" x2="297.18" y2="180.34" width="0.1524" layer="91"/>
 <wire x1="297.18" y1="180.34" x2="304.8" y2="180.34" width="0.1524" layer="91"/>
 <wire x1="304.8" y1="180.34" x2="309.88" y2="180.34" width="0.1524" layer="91"/>
@@ -5522,7 +5538,7 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <junction x="332.74" y="104.14"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="PIO5"/>
+<pinref part="U4" gate="G$1" pin="PIO5"/>
 <wire x1="172.72" y1="106.68" x2="187.96" y2="106.68" width="0.1524" layer="91"/>
 <label x="175.26" y="106.68" size="1.778" layer="95"/>
 </segment>
@@ -5581,10 +5597,10 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <approved hash="208,1,330.2,182.88,3.3V,sup,,,,"/>
 <approved hash="208,1,304.8,182.88,VIN,sup,,,,"/>
 <approved hash="208,1,226.06,137.16,VIN,out,,,,"/>
-<approved hash="117,1,186.69,132.08,RESET,,,,,"/>
-<approved hash="117,1,212.09,134.62,MOSI,,,,,"/>
-<approved hash="117,1,186.69,134.62,SCK,,,,,"/>
-<approved hash="117,1,186.69,137.16,MISO,,,,,"/>
+<approved hash="115,1,186.69,132.08,RESET,,,,,"/>
+<approved hash="115,1,212.09,134.62,MOSI,,,,,"/>
+<approved hash="115,1,186.69,134.62,SCK,,,,,"/>
+<approved hash="115,1,186.69,137.16,MISO,,,,,"/>
 </errors>
 </schematic>
 </drawing>
