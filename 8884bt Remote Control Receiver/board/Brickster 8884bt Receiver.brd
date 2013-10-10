@@ -475,7 +475,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules name="LaenPCBOrder">
+<designrules name="LaenPCBOrder *">
 <description language="de">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
 &lt;p&gt;
 Die Standard-Design-Rules sind so gewählt, dass sie für 
@@ -539,7 +539,7 @@ Please make sure your boards conform to these design rules.</description>
 <param name="mlMaxStopFrame" value="4mil"/>
 <param name="mlMinCreamFrame" value="0mil"/>
 <param name="mlMaxCreamFrame" value="0mil"/>
-<param name="mlViaStopLimit" value="0mil"/>
+<param name="mlViaStopLimit" value="13mil"/>
 <param name="srRoundness" value="0"/>
 <param name="srMinRoundness" value="0mil"/>
 <param name="srMaxRoundness" value="0mil"/>
@@ -1142,42 +1142,27 @@ Please make sure your boards conform to these design rules.</description>
 </signals>
 <errors>
 <approved hash="18,29,b1f2e14e305f2077"/>
-<approved hash="18,29,1806d26978cb8d39"/>
-<approved hash="18,29,0fd083d5ef4e6734"/>
 <approved hash="18,29,8476e246335716cb"/>
-<approved hash="18,29,fc20fc7cce030caa"/>
 <approved hash="18,29,ec73ca75d4bbb111"/>
+<approved hash="18,29,0fd083d5ef4e6734"/>
+<approved hash="18,29,1806d26978cb8d39"/>
 <approved hash="18,29,d9f7c94dd7b3879d"/>
 <approved hash="18,29,72adbbbc0d7bfbf1"/>
 <approved hash="18,29,02c38e5cc6a24e44"/>
-<approved hash="18,29,b07baae353591fc0"/>
-<approved hash="18,29,f57453b3c63976fd"/>
-<approved hash="18,29,c6916a8a6873c4f8"/>
-<approved hash="18,29,dfe4ee60682e5fa6"/>
-<approved hash="18,29,5fe42e60282e5fa6"/>
-<approved hash="18,29,5261b3acdfea5924"/>
-<approved hash="18,29,5371fce9fe9450a2"/>
-<approved hash="18,29,2df1e8aa80cf9431"/>
-<approved hash="18,29,fd0605fe058bfd73"/>
 <approved hash="18,29,3e11f0449404762b"/>
 <approved hash="18,29,1e11b2596719ef2b"/>
 <approved hash="18,29,6e6e6507ad038a10"/>
 <approved hash="18,29,2c6e451a341e7910"/>
 <approved hash="18,29,443322b022ab4428"/>
 <approved hash="18,29,81266da56da08123"/>
-<approved hash="18,29,e321639fa45684eb"/>
-<approved hash="18,29,3ac93c2df421facc"/>
-<approved hash="18,29,5dfd414b92bae9f4"/>
-<approved hash="18,29,07b605fc3a0139cb"/>
 <approved hash="18,29,3ba2005cf16e3075"/>
 <approved hash="18,29,3aba03cff21b3155"/>
 <approved hash="18,29,427e01a288ce31f7"/>
 <approved hash="18,29,434202118b9f30f7"/>
-<approved hash="18,29,34409f3a99663414"/>
+<approved hash="18,29,73c578a739c0cb69"/>
+<approved hash="18,29,73152a286b13cc56"/>
 <approved hash="18,29,dc5c7371cc3a9d6f"/>
 <approved hash="18,29,7265715731f0cb09"/>
-<approved hash="18,29,73152a286b13cc56"/>
-<approved hash="18,29,73c578a739c0cb69"/>
 <approved hash="18,29,52bda61715c018a1"/>
 <approved hash="18,29,529dafe71c7018c1"/>
 <approved hash="18,29,cab25c9d3549993d"/>
@@ -1186,30 +1171,23 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="18,29,5c5cf379bc32cd6f"/>
 <approved hash="18,29,f2ee7d5724918fd2"/>
 <approved hash="18,29,d4ef7d55b792fad3"/>
-<approved hash="18,29,f6db134fbd5ad8cf"/>
-<approved hash="18,29,edc418b8a6b3d3f8"/>
 <approved hash="18,29,f6db10b8a6b3d0cf"/>
+<approved hash="18,29,edc418b8a6b3d3f8"/>
+<approved hash="18,29,f6db134fbd5ad8cf"/>
 <approved hash="18,29,2651ec9511d5ffeb"/>
 <approved hash="18,29,2650ca9664d76cea"/>
 <approved hash="18,29,6c1d49022f1d3a12"/>
 <approved hash="18,29,6c1d49022f1d3a12"/>
 <approved hash="18,29,72cddcc0400ed458"/>
 <approved hash="18,29,72cdc1315dddd444"/>
-<approved hash="18,29,4331e10ce5284733"/>
-<approved hash="18,29,5b68462bdd6e202e"/>
-<approved hash="18,29,43f87c38c67edbbe"/>
-<approved hash="18,29,19c3444c7e4f3dc2"/>
-<approved hash="18,29,9948cdc7c5c48649"/>
-<approved hash="18,29,9d063d1d282213c7"/>
-<approved hash="18,29,9acee7a8e3a1993e"/>
 <approved hash="18,29,52f747cb4b7c938b"/>
 <approved hash="18,29,644eb1048211cb1a"/>
 <approved hash="18,29,2575185208e4a982"/>
 <approved hash="18,29,5272b3ee395e1386"/>
-<approved hash="18,29,3b3a11af1c644cdd"/>
 <approved hash="18,29,3b1a0e50039b4cfd"/>
-<approved hash="18,29,aac978718dec2578"/>
+<approved hash="18,29,3b3a11af1c644cdd"/>
 <approved hash="18,29,aac967a292332574"/>
+<approved hash="18,29,aac978718dec2578"/>
 <approved hash="18,29,48ee26af1a96b439"/>
 <approved hash="18,29,6f6273b673bc6f68"/>
 <approved hash="18,29,c8e60e30c3220a07"/>
@@ -1218,9 +1196,8 @@ Please make sure your boards conform to these design rules.</description>
 <approved hash="18,29,d725e2121a355748"/>
 <approved hash="18,29,eb85bf7532e61e60"/>
 <approved hash="18,29,eb95a0ef2d781e48"/>
-<approved hash="18,29,a99b845310e4a96c"/>
 <approved hash="18,29,f8a03d048210d3f4"/>
-<approved hash="18,29,48bb17169316155f"/>
+<approved hash="18,29,a99b845310e4a96c"/>
 <approved hash="18,30,74a815d0375c97c0"/>
 <approved hash="18,30,302eaf833c3f6276"/>
 <approved hash="18,30,d4e5c0f9865eea08"/>
