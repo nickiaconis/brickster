@@ -282,10 +282,10 @@ More information: &lt;a href="https://github.com/codefox421/brickster"&gt;https:
 <text x="3.5" y="0" size="0.6096" layer="25" rot="R90" align="top-center">&gt;VALUE</text>
 </package>
 <package name="CON_PF">
-<pad name="9V" x="-1.8" y="0" drill="0.3302" shape="square"/>
-<pad name="C2" x="-0.6" y="0" drill="0.3302"/>
-<pad name="C1" x="0.6" y="0" drill="0.3302"/>
-<pad name="GND" x="1.8" y="0" drill="0.3302"/>
+<pad name="9V" x="-1.8" y="0" drill="0.6" diameter="1.016" shape="square"/>
+<pad name="C2" x="-0.6" y="0" drill="0.6" diameter="1.016"/>
+<pad name="C1" x="0.6" y="0" drill="0.6" diameter="1.016"/>
+<pad name="GND" x="1.8" y="0" drill="0.6" diameter="1.016"/>
 </package>
 </packages>
 <symbols>
