@@ -14,6 +14,8 @@
      limitations under the License.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/swap"
+          android:title="@string/swap" />
     <item android:id="@+id/connect"
           android:icon="@android:drawable/ic_menu_search"
           android:title="@string/connect" />

@@ -26,6 +26,7 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import android.bluetooth.BluetoothAdapter;
@@ -144,6 +145,20 @@ public class BricksTer extends Activity {
 	
     private MenuItem mMenuItemConnect;
     
+    public static final byte RED_FULL_FWD = 'Q';
+    public static final byte RED_FULL_REV = 'R';
+    public static final byte RED_PWR_UP = 'A';
+    public static final byte RED_PWR_DOWN = 'B';
+    public static final byte RED_STOP = 'C';
+    public static final byte RED_FLOAT = 'P';
+    
+    public static final byte BLUE_FULL_FWD = 'd';
+    public static final byte BLUE_FULL_REV = 'h';
+    public static final byte BLUE_PWR_UP = 'D';
+    public static final byte BLUE_PWR_DOWN = 'H';
+    public static final byte BLUE_STOP = 'L';
+    public static final byte BLUE_FLOAT = '`';
+    
     private View mRedOn = null;
     
     private View mBlueOn = null;
@@ -151,6 +166,12 @@ public class BricksTer extends Activity {
     private float[] mRedPrevious = null;
     
     private float[] mBluePrevious = null;
+    
+    private int mCurrentGui = R.layout.momentary;
+    
+    private CheckBox mRedFlip;
+    
+    private CheckBox mBlueFlip;
 
     
 	/** Called when the activity is first created. */
@@ -169,13 +190,9 @@ public class BricksTer extends Activity {
     	mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);		
 		
         // Set up the window layout
-//        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main);
-//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
         // Set up the custom title
-//        mTitle = (TextView) findViewById(R.id.title_left_text);
-//        mTitle.setText(R.string.app_name);
         mTitle = (TextView) findViewById(R.id.title_right_text);
         
 
@@ -200,349 +217,7 @@ public class BricksTer extends Activity {
 //        mEmulatorView.requestFocus();
 //        mEmulatorView.register(mKeyListener);
 		
-		/* Momentary buttons
-		// Red forward
-		Button button = (Button) findViewById(R.id.button_red_fwd);
-		button.setOnTouchListener(new OnTouchListener() {
-
-		    @Override
-		    public boolean onTouch(View v, MotionEvent event) {
-	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-		    	byte[] buffer = new byte[1];
-		    	switch (event.getAction()) {
-		    		case MotionEvent.ACTION_DOWN:
-		    			if (mRedOn == null) {
-		    				buffer[0] = (byte)'Q'; // full-forward on red-port
-		    				mSerialService.write(buffer);
-		    				mVibrator.vibrate(50);
-		    				mRedOn = v;
-		    			}
-		    			break;
-		    		case MotionEvent.ACTION_UP:
-		    			if (mRedOn == v) {
-		    				buffer[0] = (byte)'P'; // float on red-port
-		    				mSerialService.write(buffer);
-		    				mVibrator.vibrate(50);
-		    				mRedOn = null;
-		    			}
-		    			break;
-		    	}
-	        	return false;
-		    }
-		   });
-		// Red reverse
-		button = (Button) findViewById(R.id.button_red_rev);
-		button.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mRedOn == null) {
-							buffer[0] = (byte)'R'; // full-reverse on red-port
-				        	mSerialService.write(buffer);
-				        	mVibrator.vibrate(50);
-				        	mRedOn = v;
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mRedOn == v) {
-							buffer[0] = (byte)'P'; // float on red-port
-				        	mSerialService.write(buffer);
-				        	mVibrator.vibrate(50);
-				        	mRedOn = null;
-						}
-						break;
-				}
-	        	return false;
-			}
-		});
-		// Blue forward
-		button = (Button) findViewById(R.id.button_blue_fwd);
-		button.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mBlueOn == null) {
-							buffer[0] = (byte)'d'; // full-forward on blue-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mBlueOn = v;
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mBlueOn == v) {
-							buffer[0] = (byte)'`'; // float on blue-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mBlueOn = null;
-						}
-						break;
-				}
-				return false;
-			}
-		});
-		// Blue reverse
-		button = (Button) findViewById(R.id.button_blue_rev);
-		button.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mBlueOn == null) {
-							buffer[0] = (byte)'h'; // full-reverse on blue-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mBlueOn = v;
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mBlueOn == v) {
-							buffer[0] = (byte)'`'; // float on blue-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mBlueOn = null;
-						}
-						break;
-				}
-				return false;
-			}
-		});
-		Momentary buttons */
-		
-		// Red dial
-		Button button = (Button) findViewById(R.id.button_red_dial);
-		button.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mRedOn == null) {
-							// Save state
-							mRedOn = v;
-							mRedPrevious = new float[3];
-							mRedPrevious[0] = event.getX();
-							mRedPrevious[1] = event.getY();
-							mRedPrevious[2] = v.getRotation();
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mRedOn == v) {
-							// Click into 45 degrees
-							v.setRotation(Math.round(v.getRotation() / 45) * 45);
-							
-							// Send command if necessary
-							if (v.getRotation() != mRedPrevious[2]) {
-								if (v.getRotation() > mRedPrevious[2]) {
-									// Clicked clockwise
-									buffer[0] = (byte)'B'; // increase-reverse on red-port
-								} else {
-									// Clicked counter-clockwise
-									buffer[0] = (byte)'A'; // increase-foward on red-port
-								}
-								mSerialService.write(buffer);
-								mVibrator.vibrate(50);
-							}
-							
-							// Clean up saved state
-							mRedOn = null;
-							mRedPrevious = null;
-						}
-						break;
-					case MotionEvent.ACTION_MOVE:
-						if (mRedOn == v && mRedPrevious != null) {
-							// Calculate rotation
-							double centerX = v.getWidth() / 2.0;
-							double centerY = v.getHeight() / 2.0;
-							double angleNew = Math.atan2(event.getY() - centerY, event.getX() - centerX);
-							double anglePrevious = Math.atan2(mRedPrevious[1] - centerY, mRedPrevious[0] - centerX);
-							double dAngle = Math.toDegrees(angleNew - anglePrevious);
-							double rotationPrevious = v.getRotation();
-							double rotationNew = rotationPrevious + dAngle;
-							
-							// Check to de-glitch rotation
-							if (Math.abs(dAngle) < 15) {
-								// Set rotation
-								v.setRotation((float)rotationNew);
-								
-								// Check to debounce commands
-								if (mRedPrevious[2] != Math.round(v.getRotation() / 45) * 45) {
-									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
-										// Clicked clockwise
-										buffer[0] = (byte)'B'; // increase-reverse on red-port
-										mSerialService.write(buffer);
-										mVibrator.vibrate(50);
-										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
-									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
-										// Clicked counter-clockwise
-										buffer[0] = (byte)'A'; // increase-forward on red-port
-										mSerialService.write(buffer);
-										mVibrator.vibrate(50);
-										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
-									}
-								}
-							}
-							
-							// Update saved state
-							mRedPrevious[0] = event.getX();
-							mRedPrevious[1] = event.getY();
-						}
-						break;
-				}
-				return false;
-			}
-		});
-		// Red stop
-		button = (Button) findViewById(R.id.button_red_stop);
-		button.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mRedOn == null) {
-							buffer[0] = (byte)'C'; // brake on red-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mRedOn = v;
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mRedOn == v) {
-							mVibrator.vibrate(50);
-							mRedOn = null;
-						}
-						break;
-				}
-				return false;
-			}
-		});
-		// Blue dial
-		button = (Button) findViewById(R.id.button_blue_dial);
-		button.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mBlueOn == null) {
-							// Save state
-							mBlueOn = v;
-							mBluePrevious = new float[3];
-							mBluePrevious[0] = event.getX();
-							mBluePrevious[1] = event.getY();
-							mBluePrevious[2] = v.getRotation();
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mBlueOn == v) {
-							// Click into 45 degrees
-							v.setRotation(Math.round(v.getRotation() / 45) * 45);
-							
-							// Send command if necessary
-							if (v.getRotation() != mBluePrevious[2]) {
-								if (v.getRotation() > mBluePrevious[2]) {
-									// Clicked clockwise
-									buffer[0] = (byte)'H'; // increase-reverse on blue-port
-								} else {
-									// Clicked counter-clockwise
-									buffer[0] = (byte)'D'; // increase-forward on blue-port
-								}
-								mSerialService.write(buffer);
-								mVibrator.vibrate(50);
-							}
-							
-							// Clean up saved state
-							mBlueOn = null;
-							mBluePrevious = null;
-						}
-						break;
-					case MotionEvent.ACTION_MOVE:
-						if (mBlueOn == v && mBluePrevious != null) {
-							// Calculate rotation
-							double centerX = v.getWidth() / 2.0;
-							double centerY = v.getHeight() / 2.0;
-							double angleNew = Math.atan2(event.getY() - centerY, event.getX() - centerX);
-							double anglePrevious = Math.atan2(mBluePrevious[1] - centerY, mBluePrevious[0] - centerX);
-							double dAngle = Math.toDegrees(angleNew - anglePrevious);
-							double rotationPrevious = v.getRotation();
-							double rotationNew = rotationPrevious + dAngle;
-	
-							// Check to de-glitch rotation
-							if (Math.abs(dAngle) < 15) {
-								// Set rotation
-								v.setRotation((float)rotationNew);
-	
-								// Check to debounce commands
-								if (mBluePrevious[2] != Math.round(v.getRotation() / 45) * 45) {
-									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
-										// Clicked clockwise
-										buffer[0] = (byte)'H'; // increase-reverse on blue-port
-										mSerialService.write(buffer);
-										mVibrator.vibrate(50);
-										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
-									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
-										// Clicked counter-clockwise
-										buffer[0] = (byte)'D'; // increase-forward on blue-port
-										mSerialService.write(buffer);
-										mVibrator.vibrate(50);
-										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
-									}
-								}
-							}
-	
-							// Update saved state
-							mBluePrevious[0] = event.getX();
-							mBluePrevious[1] = event.getY();
-						}
-						break;
-				}
-				return false;
-			}
-		});
-		// Blue stop
-		button = (Button) findViewById(R.id.button_blue_stop);
-		button.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-				byte[] buffer = new byte[1];
-				switch (event.getAction()) {
-					case MotionEvent.ACTION_DOWN:
-						if (mBlueOn == null) {
-							buffer[0] = (byte)'L'; // brake on blue-port
-							mSerialService.write(buffer);
-							mVibrator.vibrate(50);
-							mBlueOn = v;
-						}
-						break;
-					case MotionEvent.ACTION_UP:
-						if (mBlueOn == v) {
-							mVibrator.vibrate(50);
-							mBlueOn = null;
-						}
-						break;
-				}
-				return false;
-			}
-		});
+		setupMomentaryGui();
 
         mSerialService = new BluetoothSerialService(this, mHandlerBT/*, mEmulatorView*/);        
 
@@ -644,6 +319,400 @@ public class BricksTer extends Activity {
         if (mSerialService != null)
         	mSerialService.stop();
         
+	}
+	
+	private void setupTerminalGui() {
+		// Set up the window layout
+//		setContentView(R.layout.term_activity);
+//
+//        mEmulatorView = (EmulatorView) findViewById(R.id.emulatorView);
+//
+//        mEmulatorView.initialize( this );
+//
+//        mKeyListener = new TermKeyListener();
+//
+//        mEmulatorView.setFocusable(true);
+//        mEmulatorView.setFocusableInTouchMode(true);
+//        mEmulatorView.requestFocus();
+//        mEmulatorView.register(mKeyListener);
+	}
+	
+	private void setupMomentaryGui() {
+		CharSequence oldTitle = mTitle.getText();
+		boolean oldRedFlip = mRedFlip != null && mRedFlip.isChecked();
+		boolean oldBlueFlip = mBlueFlip != null && mBlueFlip.isChecked();
+		// Set up the window layout
+		mCurrentGui = R.layout.momentary;
+		setContentView(mCurrentGui);
+		mTitle = (TextView) findViewById(R.id.title_right_text);
+		mTitle.setText(oldTitle);
+		
+		/* Momentary buttons */
+		// Red flip
+		mRedFlip = (CheckBox) findViewById(R.id.check_red_flip);
+		mRedFlip.setChecked(oldRedFlip);
+		// Red forward
+		Button button = (Button) findViewById(R.id.button_red_fwd);
+		button.setOnTouchListener(new OnTouchListener() {
+
+		    @Override
+		    public boolean onTouch(View v, MotionEvent event) {
+	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+		    	byte[] buffer = new byte[1];
+		    	switch (event.getAction()) {
+		    		case MotionEvent.ACTION_DOWN:
+		    			if (mRedOn == null) {
+		    				buffer[0] = !mRedFlip.isChecked() ? RED_FULL_FWD : RED_FULL_REV;
+		    				mSerialService.write(buffer);
+		    				mVibrator.vibrate(50);
+		    				mRedOn = v;
+		    			}
+		    			break;
+		    		case MotionEvent.ACTION_UP:
+		    			if (mRedOn == v) {
+		    				buffer[0] = RED_FLOAT;
+		    				mSerialService.write(buffer);
+		    				mVibrator.vibrate(50);
+		    				mRedOn = null;
+		    			}
+		    			break;
+		    	}
+	        	return false;
+		    }
+		   });
+		// Red reverse
+		button = (Button) findViewById(R.id.button_red_rev);
+		button.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+	        	Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mRedOn == null) {
+							buffer[0] = !mRedFlip.isChecked() ? RED_FULL_REV : RED_FULL_FWD;
+				        	mSerialService.write(buffer);
+				        	mVibrator.vibrate(50);
+				        	mRedOn = v;
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mRedOn == v) {
+							buffer[0] = RED_FLOAT;
+				        	mSerialService.write(buffer);
+				        	mVibrator.vibrate(50);
+				        	mRedOn = null;
+						}
+						break;
+				}
+	        	return false;
+			}
+		});
+		// Blue flip
+		mBlueFlip = (CheckBox) findViewById(R.id.check_blue_flip);
+		mBlueFlip.setChecked(oldBlueFlip);
+		// Blue forward
+		button = (Button) findViewById(R.id.button_blue_fwd);
+		button.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mBlueOn == null) {
+							buffer[0] = !mBlueFlip.isChecked() ? BLUE_FULL_FWD : BLUE_FULL_REV;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mBlueOn = v;
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mBlueOn == v) {
+							buffer[0] = BLUE_FLOAT;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mBlueOn = null;
+						}
+						break;
+				}
+				return false;
+			}
+		});
+		// Blue reverse
+		button = (Button) findViewById(R.id.button_blue_rev);
+		button.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mBlueOn == null) {
+							buffer[0] = !mBlueFlip.isChecked() ? BLUE_FULL_REV : BLUE_FULL_FWD;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mBlueOn = v;
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mBlueOn == v) {
+							buffer[0] = BLUE_FLOAT;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mBlueOn = null;
+						}
+						break;
+				}
+				return false;
+			}
+		});
+	}
+	
+	private void setupSpeedGui() {
+		CharSequence oldTitle = mTitle.getText();
+		boolean oldRedFlip = mRedFlip != null && mRedFlip.isChecked();
+		boolean oldBlueFlip = mBlueFlip != null && mBlueFlip.isChecked();
+		// Set up the window layout
+		mCurrentGui = R.layout.speed;
+		setContentView(mCurrentGui);
+		mTitle = (TextView) findViewById(R.id.title_right_text);
+		mTitle.setText(oldTitle);
+		
+		/* Speed buttons */
+		// Red flip
+		mRedFlip = (CheckBox) findViewById(R.id.check_red_flip);
+		mRedFlip.setChecked(oldRedFlip);
+		// Red dial
+		Button button = (Button) findViewById(R.id.button_red_dial);
+		button.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mRedOn == null) {
+							// Save state
+							mRedOn = v;
+							mRedPrevious = new float[3];
+							mRedPrevious[0] = event.getX();
+							mRedPrevious[1] = event.getY();
+							mRedPrevious[2] = v.getRotation();
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mRedOn == v) {
+							// Click into 45 degrees
+							v.setRotation(Math.round(v.getRotation() / 45) * 45);
+							
+							// Send command if necessary
+							if (v.getRotation() != mRedPrevious[2]) {
+								if (v.getRotation() > mRedPrevious[2]) {
+									// Clicked clockwise
+									buffer[0] = !mRedFlip.isChecked() ? RED_PWR_DOWN : RED_PWR_UP;
+								} else {
+									// Clicked counter-clockwise
+									buffer[0] = !mRedFlip.isChecked() ? RED_PWR_UP : RED_PWR_DOWN;
+								}
+								mSerialService.write(buffer);
+								mVibrator.vibrate(50);
+							}
+							
+							// Clean up saved state
+							mRedOn = null;
+							mRedPrevious = null;
+						}
+						break;
+					case MotionEvent.ACTION_MOVE:
+						if (mRedOn == v && mRedPrevious != null) {
+							// Calculate rotation
+							double centerX = v.getWidth() / 2.0;
+							double centerY = v.getHeight() / 2.0;
+							double angleNew = Math.atan2(event.getY() - centerY, event.getX() - centerX);
+							double anglePrevious = Math.atan2(mRedPrevious[1] - centerY, mRedPrevious[0] - centerX);
+							double dAngle = Math.toDegrees(angleNew - anglePrevious);
+							double rotationPrevious = v.getRotation();
+							double rotationNew = rotationPrevious + dAngle;
+							
+							// Check to de-glitch rotation
+							if (Math.abs(dAngle) < 15) {
+								// Set rotation
+								v.setRotation((float)rotationNew);
+								
+								// Check to debounce commands
+								if (mRedPrevious[2] != Math.round(v.getRotation() / 45) * 45) {
+									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
+										// Clicked clockwise
+										buffer[0] = !mRedFlip.isChecked() ? RED_PWR_DOWN : RED_PWR_UP;
+										mSerialService.write(buffer);
+										mVibrator.vibrate(50);
+										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
+									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
+										// Clicked counter-clockwise
+										buffer[0] = !mRedFlip.isChecked() ? RED_PWR_UP : RED_PWR_DOWN;
+										mSerialService.write(buffer);
+										mVibrator.vibrate(50);
+										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
+									}
+								}
+							}
+							
+							// Update saved state
+							mRedPrevious[0] = event.getX();
+							mRedPrevious[1] = event.getY();
+						}
+						break;
+				}
+				return false;
+			}
+		});
+		// Red stop
+		button = (Button) findViewById(R.id.button_red_stop);
+		button.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mRedOn == null) {
+							buffer[0] = RED_STOP;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mRedOn = v;
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mRedOn == v) {
+							mVibrator.vibrate(50);
+							mRedOn = null;
+						}
+						break;
+				}
+				return false;
+			}
+		});
+		// Blue flip
+		mBlueFlip = (CheckBox) findViewById(R.id.check_blue_flip);
+		mBlueFlip.setChecked(oldBlueFlip);
+		// Blue dial
+		button = (Button) findViewById(R.id.button_blue_dial);
+		button.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mBlueOn == null) {
+							// Save state
+							mBlueOn = v;
+							mBluePrevious = new float[3];
+							mBluePrevious[0] = event.getX();
+							mBluePrevious[1] = event.getY();
+							mBluePrevious[2] = v.getRotation();
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mBlueOn == v) {
+							// Click into 45 degrees
+							v.setRotation(Math.round(v.getRotation() / 45) * 45);
+							
+							// Send command if necessary
+							if (v.getRotation() != mBluePrevious[2]) {
+								if (v.getRotation() > mBluePrevious[2]) {
+									// Clicked clockwise
+									buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_DOWN : BLUE_PWR_UP;
+								} else {
+									// Clicked counter-clockwise
+									buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_UP : BLUE_PWR_DOWN;
+								}
+								mSerialService.write(buffer);
+								mVibrator.vibrate(50);
+							}
+							
+							// Clean up saved state
+							mBlueOn = null;
+							mBluePrevious = null;
+						}
+						break;
+					case MotionEvent.ACTION_MOVE:
+						if (mBlueOn == v && mBluePrevious != null) {
+							// Calculate rotation
+							double centerX = v.getWidth() / 2.0;
+							double centerY = v.getHeight() / 2.0;
+							double angleNew = Math.atan2(event.getY() - centerY, event.getX() - centerX);
+							double anglePrevious = Math.atan2(mBluePrevious[1] - centerY, mBluePrevious[0] - centerX);
+							double dAngle = Math.toDegrees(angleNew - anglePrevious);
+							double rotationPrevious = v.getRotation();
+							double rotationNew = rotationPrevious + dAngle;
+	
+							// Check to de-glitch rotation
+							if (Math.abs(dAngle) < 15) {
+								// Set rotation
+								v.setRotation((float)rotationNew);
+	
+								// Check to debounce commands
+								if (mBluePrevious[2] != Math.round(v.getRotation() / 45) * 45) {
+									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
+										// Clicked clockwise
+										buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_DOWN : BLUE_PWR_UP;
+										mSerialService.write(buffer);
+										mVibrator.vibrate(50);
+										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
+									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
+										// Clicked counter-clockwise
+										buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_UP : BLUE_PWR_DOWN;
+										mSerialService.write(buffer);
+										mVibrator.vibrate(50);
+										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
+									}
+								}
+							}
+	
+							// Update saved state
+							mBluePrevious[0] = event.getX();
+							mBluePrevious[1] = event.getY();
+						}
+						break;
+				}
+				return false;
+			}
+		});
+		// Blue stop
+		button = (Button) findViewById(R.id.button_blue_stop);
+		button.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Vibrator mVibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+				byte[] buffer = new byte[1];
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						if (mBlueOn == null) {
+							buffer[0] = BLUE_STOP;
+							mSerialService.write(buffer);
+							mVibrator.vibrate(50);
+							mBlueOn = v;
+						}
+						break;
+					case MotionEvent.ACTION_UP:
+						if (mBlueOn == v) {
+							mVibrator.vibrate(50);
+							mBlueOn = null;
+						}
+						break;
+				}
+				return false;
+			}
+		});
 	}
 
     private void readPrefs() {
@@ -913,6 +982,13 @@ public class BricksTer extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+        case R.id.swap:
+        	if (mCurrentGui == R.layout.momentary) {
+        		setupSpeedGui();
+        	} else {
+        		setupMomentaryGui();
+        	}
+        	return true;
         case R.id.connect:
         	
         	if (getConnectionState() == BluetoothSerialService.STATE_NONE) {

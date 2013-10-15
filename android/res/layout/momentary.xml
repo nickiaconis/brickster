@@ -65,9 +65,10 @@
         android:id="@+id/button_blue_fwd"
         android:layout_width="78dp"
         android:layout_height="72dp"
-        android:layout_marginLeft="24.5dp"
-        android:layout_above="@+id/button_red_rev"
-        android:layout_toRightOf="@+id/button_red_fwd"
+        android:layout_alignRight="@+id/background_momentary"
+        android:layout_alignTop="@+id/background_momentary"
+        android:layout_marginRight="89dp"
+        android:layout_marginTop="150dp"
         android:background="@android:color/transparent"
         android:longClickable="false" />
 
@@ -79,6 +80,24 @@
         android:layout_alignLeft="@+id/button_blue_fwd"
         android:background="@android:color/transparent"
         android:longClickable="false" />
+
+    <CheckBox
+        android:id="@+id/check_red_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_red_rev"
+        android:layout_below="@+id/button_red_rev"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="72.5dp" />
+
+    <CheckBox
+        android:id="@+id/check_blue_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/button_blue_rev"
+        android:layout_below="@+id/button_blue_rev"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="72.5dp" />
         
 </RelativeLayout>
 

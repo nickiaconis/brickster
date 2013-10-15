@@ -61,4 +61,5 @@
    <string name="default_value_controlkey_preference">0</string>
    <string name="title_momentary">8885 Remote Control</string>
    <string name="title_speed">8879 Speed Remote Control</string>
+   <string name="swap">Switch interface</string>
 </resources>
