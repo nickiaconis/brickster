@@ -149,6 +149,7 @@ public class BricksTer extends Activity {
 
     private SharedPreferences mPrefs;
 	
+    private MenuItem mMenuItemSwap;
     private MenuItem mMenuItemConnect;
     
     public static final byte RED_FULL_FWD = 'Q';
@@ -763,6 +764,7 @@ public class BricksTer extends Activity {
     }
     
     private void updateDevicePrefs() {
+    	// Restore motor reversing choices
 		boolean storedRedFlip = (mConnectedDevicePrefs != null && 
 				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false));
 		boolean storedBlueFlip = (mConnectedDevicePrefs != null && 
@@ -773,6 +775,23 @@ public class BricksTer extends Activity {
 		
 		if (mBlueFlip != null)
 			mBlueFlip.setChecked(storedBlueFlip);
+		
+		// Restore controller GUI
+		if (mConnectedDevicePrefs != null) {
+			if (mConnectedDevicePrefs.getString("gui", "momentary").equalsIgnoreCase("speed")) {
+				mCurrentGui = R.layout.speed;
+			} else {
+				mCurrentGui = R.layout.momentary;
+			}
+
+			if (mCurrentGui == R.layout.speed) {
+				setupSpeedGui();
+				mMenuItemSwap.setIcon(R.drawable.ic_action_momentary);
+			} else {
+				setupMomentaryGui();
+				mMenuItemSwap.setIcon(R.drawable.ic_action_speed);
+			}
+		}
     }
 
     private int readIntPref(String key, int defaultValue, int maxValue) {
@@ -1024,6 +1043,7 @@ public class BricksTer extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu, menu);
+        mMenuItemSwap = menu.findItem(R.id.swap);
         mMenuItemConnect = menu.findItem(R.id.connect);
         return true;
     }
@@ -1034,8 +1054,16 @@ public class BricksTer extends Activity {
         case R.id.swap:
         	if (mCurrentGui == R.layout.momentary) {
         		setupSpeedGui();
+        		mMenuItemSwap.setIcon(R.drawable.ic_action_momentary);
         	} else {
         		setupMomentaryGui();
+        		mMenuItemSwap.setIcon(R.drawable.ic_action_speed);
+        	}
+        	// Save GUI choice
+        	if (mConnectedDevicePrefs != null) {
+        		Editor editor = mConnectedDevicePrefs.edit();
+        		editor.putString("gui", (mCurrentGui == R.layout.speed ? "speed" : "momentary"));
+        		editor.apply();
         	}
         	return true;
         case R.id.connect:
