@@ -27,6 +27,8 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import android.bluetooth.BluetoothAdapter;
@@ -35,6 +37,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -56,6 +59,9 @@ public class BricksTer extends Activity {
 
     // Name of the connected device
     private String mConnectedDeviceName = null;
+    
+    // Preferences for the connected device
+    private SharedPreferences mConnectedDevicePrefs = null;
 
     /**
      * Set to true to add debugging code and logging.
@@ -172,6 +178,18 @@ public class BricksTer extends Activity {
     private CheckBox mRedFlip;
     
     private CheckBox mBlueFlip;
+    
+    private OnCheckedChangeListener mGenericFlipChanged = new OnCheckedChangeListener() {
+
+		@Override
+		public void onCheckedChanged(CompoundButton checkBox, boolean isChecked) {
+			if (mConnectedDevicePrefs != null) {
+				Editor editor = mConnectedDevicePrefs.edit();
+				editor.putBoolean(Integer.valueOf(checkBox.getId()).toString(), isChecked);
+				editor.apply();
+			}
+		}
+	};
 
     
 	/** Called when the activity is first created. */
@@ -339,8 +357,12 @@ public class BricksTer extends Activity {
 	
 	private void setupMomentaryGui() {
 		CharSequence oldTitle = mTitle.getText();
-		boolean oldRedFlip = mRedFlip != null && mRedFlip.isChecked();
-		boolean oldBlueFlip = mBlueFlip != null && mBlueFlip.isChecked();
+		boolean oldRedFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false)) ||
+				(mRedFlip != null && mRedFlip.isChecked());
+		boolean oldBlueFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_blue_flip).toString(), false)) ||
+				(mBlueFlip != null && mBlueFlip.isChecked());
 		// Set up the window layout
 		mCurrentGui = R.layout.momentary;
 		setContentView(mCurrentGui);
@@ -351,6 +373,7 @@ public class BricksTer extends Activity {
 		// Red flip
 		mRedFlip = (CheckBox) findViewById(R.id.check_red_flip);
 		mRedFlip.setChecked(oldRedFlip);
+		mRedFlip.setOnCheckedChangeListener(mGenericFlipChanged);
 		// Red forward
 		Button button = (Button) findViewById(R.id.button_red_fwd);
 		button.setOnTouchListener(new OnTouchListener() {
@@ -412,6 +435,7 @@ public class BricksTer extends Activity {
 		// Blue flip
 		mBlueFlip = (CheckBox) findViewById(R.id.check_blue_flip);
 		mBlueFlip.setChecked(oldBlueFlip);
+		mBlueFlip.setOnCheckedChangeListener(mGenericFlipChanged);
 		// Blue forward
 		button = (Button) findViewById(R.id.button_blue_fwd);
 		button.setOnTouchListener(new OnTouchListener() {
@@ -474,8 +498,12 @@ public class BricksTer extends Activity {
 	
 	private void setupSpeedGui() {
 		CharSequence oldTitle = mTitle.getText();
-		boolean oldRedFlip = mRedFlip != null && mRedFlip.isChecked();
-		boolean oldBlueFlip = mBlueFlip != null && mBlueFlip.isChecked();
+		boolean oldRedFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false)) ||
+				(mRedFlip != null && mRedFlip.isChecked());
+		boolean oldBlueFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_blue_flip).toString(), false)) ||
+				(mBlueFlip != null && mBlueFlip.isChecked());
 		// Set up the window layout
 		mCurrentGui = R.layout.speed;
 		setContentView(mCurrentGui);
@@ -486,6 +514,7 @@ public class BricksTer extends Activity {
 		// Red flip
 		mRedFlip = (CheckBox) findViewById(R.id.check_red_flip);
 		mRedFlip.setChecked(oldRedFlip);
+		mRedFlip.setOnCheckedChangeListener(mGenericFlipChanged);
 		// Red dial
 		Button button = (Button) findViewById(R.id.button_red_dial);
 		button.setOnTouchListener(new OnTouchListener() {
@@ -601,6 +630,7 @@ public class BricksTer extends Activity {
 		// Blue flip
 		mBlueFlip = (CheckBox) findViewById(R.id.check_blue_flip);
 		mBlueFlip.setChecked(oldBlueFlip);
+		mBlueFlip.setOnCheckedChangeListener(mGenericFlipChanged);
 		// Blue dial
 		button = (Button) findViewById(R.id.button_blue_dial);
 		button.setOnTouchListener(new OnTouchListener() {
@@ -715,7 +745,8 @@ public class BricksTer extends Activity {
 		});
 	}
 
-    private void readPrefs() {
+	
+	private void readPrefs() {
         mLocalEcho = mPrefs.getBoolean(LOCALECHO_KEY, mLocalEcho);
         mFontSize = readIntPref(FONTSIZE_KEY, mFontSize, 20);
         mColorId = readIntPref(COLOR_KEY, mColorId, COLOR_SCHEMES.length - 1);
@@ -729,6 +760,19 @@ public class BricksTer extends Activity {
 //        mEmulatorView.setTextSize((int) (mFontSize * metrics.density));
         setColors();
         mControlKeyCode = CONTROL_KEY_SCHEMES[mControlKeyId];
+    }
+    
+    private void updateDevicePrefs() {
+		boolean storedRedFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false));
+		boolean storedBlueFlip = (mConnectedDevicePrefs != null && 
+				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_blue_flip).toString(), false));
+		
+		if (mRedFlip != null)
+			mRedFlip.setChecked(storedRedFlip);
+		
+		if (mBlueFlip != null)
+			mBlueFlip.setChecked(storedBlueFlip);
     }
 
     private int readIntPref(String key, int defaultValue, int maxValue) {
@@ -779,6 +823,9 @@ public class BricksTer extends Activity {
                 	
                     mTitle.setText(R.string.title_connected_to);
                     mTitle.append(mConnectedDeviceName);
+                    
+            		mConnectedDevicePrefs = getSharedPreferences(mConnectedDeviceName, Context.MODE_PRIVATE);
+            		updateDevicePrefs();
                     break;
                     
                 case BluetoothSerialService.STATE_CONNECTING:
@@ -796,6 +843,8 @@ public class BricksTer extends Activity {
                 	
                     mTitle.setText(R.string.title_not_connected);
 
+                    mConnectedDevicePrefs = null;
+                    updateDevicePrefs();
                     break;
                 }
                 break;
