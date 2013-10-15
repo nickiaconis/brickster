@@ -975,7 +975,7 @@ public class BricksTer extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu, menu);
-        mMenuItemConnect = menu.getItem(0);
+        mMenuItemConnect = menu.findItem(R.id.connect);
         return true;
     }
 
