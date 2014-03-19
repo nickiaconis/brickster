@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:splitMotionEvents="true" >
+
+    <ImageView
+        android:id="@+id/background_speed"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="false"
+        android:contentDescription="@string/title_speed"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:longClickable="false"
+        android:scaleType="centerInside"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:src="@drawable/bg_speed" />
+    
+    <TextView android:id="@+id/title_right_text"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+    />
+
+    <Button
+        android:id="@+id/button_red_dial"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/button_red_stop"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/button_red_stop"
+        android:background="@drawable/bt_speed"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/button_red_stop"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="118.5dp"
+        android:layout_marginTop="142dp"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+    
+    <Button
+        android:id="@+id/button_blue_dial"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/button_blue_stop"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/button_blue_stop"
+        android:background="@drawable/bt_speed"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/button_blue_stop"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="118.5dp"
+        android:layout_marginBottom="140dp"
+        android:background="@android:color/transparent"
+        android:longClickable="false" />
+
+    <CheckBox
+        android:id="@+id/check_red_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_red_stop"
+        android:layout_below="@+id/button_red_stop"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="4.5dp" />
+
+    <CheckBox
+        android:id="@+id/check_blue_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_blue_stop"
+        android:layout_above="@+id/button_blue_stop"
+        android:layout_marginBottom="28.5dp"
+        android:layout_marginLeft="4.5dp" />
+        
+</RelativeLayout>
