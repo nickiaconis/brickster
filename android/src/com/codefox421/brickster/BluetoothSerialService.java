@@ -50,6 +50,7 @@ public class BluetoothSerialService {
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private int mState;
+    private BluetoothDevice mDevice = null;
     
 //    private EmulatorView mEmulatorView;
 
@@ -80,13 +81,24 @@ public class BluetoothSerialService {
         mState = state;
 
         // Give the new state to the Handler so the UI Activity can update
-        mHandler.obtainMessage(BricksTer.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+        Message msg = mHandler.obtainMessage(BricksTer.MESSAGE_STATE_CHANGE, state, -1);//.sendToTarget();
+        Bundle bundle = new Bundle();
+        bundle.putString(BricksTer.DEVICE_NAME, mDevice.getName());
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
     }
 
     /**
      * Return the current connection state. */
     public synchronized int getState() {
         return mState;
+    }
+    
+    /**
+     * Return the associated device.
+     */
+    public synchronized BluetoothDevice getDevice() {
+    	return mDevice;
     }
 
     /**
@@ -124,6 +136,9 @@ public class BluetoothSerialService {
 
         // Cancel any thread currently running a connection
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
+        
+        // Remember the device
+        mDevice = device;
 
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device);

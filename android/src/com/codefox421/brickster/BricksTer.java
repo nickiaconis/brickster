@@ -1,6 +1,7 @@
 package com.codefox421.brickster;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -112,7 +113,7 @@ public class BricksTer extends Activity {
     private TermKeyListener mKeyListener;
 		
 	
-    private static BluetoothSerialService mSerialService = null;
+    private static ArrayList<BluetoothSerialService> mSerialServices = new ArrayList<BluetoothSerialService>();
     
 	private static InputMethodManager mInputManager;
 	
@@ -238,7 +239,7 @@ public class BricksTer extends Activity {
 		
 		setupMomentaryGui();
 
-        mSerialService = new BluetoothSerialService(this, mHandlerBT/*, mEmulatorView*/);        
+//        mSerialServices.add(new BluetoothSerialService(this, mHandlerBT/*, mEmulatorView*/));
 
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ DONE IN ON CREATE +++");
@@ -285,12 +286,8 @@ public class BricksTer extends Activity {
                 alert.show();
 		    }		
 		
-		    if (mSerialService != null) {
-		    	// Only if the state is STATE_NONE, do we know that we haven't started already
-		    	if (mSerialService.getState() == BluetoothSerialService.STATE_NONE) {
-		    		// Start the Bluetooth chat services
-		    		mSerialService.start();
-		    	}
+		    if (!mSerialServices.isEmpty()) {
+		    	pruneSerialServices();
 		    }
 
 		    if (mBluetoothAdapter != null) {
@@ -335,13 +332,14 @@ public class BricksTer extends Activity {
 		if (DEBUG)
 			Log.e(LOG_TAG, "--- ON DESTROY ---");
 		
-        if (mSerialService != null)
-        	mSerialService.stop();
+		// Stop and remove all services
+        while (!mSerialServices.isEmpty())
+        	mSerialServices.remove(mSerialServices.size() - 1).stop();
         
 	}
 	
-	private void setupTerminalGui() {
-		// Set up the window layout
+//	private void setupTerminalGui() {
+//		// Set up the window layout
 //		setContentView(R.layout.term_activity);
 //
 //        mEmulatorView = (EmulatorView) findViewById(R.id.emulatorView);
@@ -354,7 +352,7 @@ public class BricksTer extends Activity {
 //        mEmulatorView.setFocusableInTouchMode(true);
 //        mEmulatorView.requestFocus();
 //        mEmulatorView.register(mKeyListener);
-	}
+//	}
 	
 	private void setupMomentaryGui() {
 		CharSequence oldTitle = mTitle.getText();
@@ -387,7 +385,8 @@ public class BricksTer extends Activity {
 		    		case MotionEvent.ACTION_DOWN:
 		    			if (mRedOn == null) {
 		    				buffer[0] = !mRedFlip.isChecked() ? RED_FULL_FWD : RED_FULL_REV;
-		    				mSerialService.write(buffer);
+		    				for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 		    				mVibrator.vibrate(50);
 		    				mRedOn = v;
 		    			}
@@ -395,7 +394,8 @@ public class BricksTer extends Activity {
 		    		case MotionEvent.ACTION_UP:
 		    			if (mRedOn == v) {
 		    				buffer[0] = RED_FLOAT;
-		    				mSerialService.write(buffer);
+		    				for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 		    				mVibrator.vibrate(50);
 		    				mRedOn = null;
 		    			}
@@ -416,7 +416,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_DOWN:
 						if (mRedOn == null) {
 							buffer[0] = !mRedFlip.isChecked() ? RED_FULL_REV : RED_FULL_FWD;
-				        	mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 				        	mVibrator.vibrate(50);
 				        	mRedOn = v;
 						}
@@ -424,7 +425,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_UP:
 						if (mRedOn == v) {
 							buffer[0] = RED_FLOAT;
-				        	mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 				        	mVibrator.vibrate(50);
 				        	mRedOn = null;
 						}
@@ -449,7 +451,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_DOWN:
 						if (mBlueOn == null) {
 							buffer[0] = !mBlueFlip.isChecked() ? BLUE_FULL_FWD : BLUE_FULL_REV;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mBlueOn = v;
 						}
@@ -457,7 +460,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_UP:
 						if (mBlueOn == v) {
 							buffer[0] = BLUE_FLOAT;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mBlueOn = null;
 						}
@@ -478,7 +482,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_DOWN:
 						if (mBlueOn == null) {
 							buffer[0] = !mBlueFlip.isChecked() ? BLUE_FULL_REV : BLUE_FULL_FWD;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mBlueOn = v;
 						}
@@ -486,7 +491,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_UP:
 						if (mBlueOn == v) {
 							buffer[0] = BLUE_FLOAT;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mBlueOn = null;
 						}
@@ -549,7 +555,8 @@ public class BricksTer extends Activity {
 									// Clicked counter-clockwise
 									buffer[0] = !mRedFlip.isChecked() ? RED_PWR_UP : RED_PWR_DOWN;
 								}
-								mSerialService.write(buffer);
+								for (BluetoothSerialService mSerialService : mSerialServices)
+			    					mSerialService.write(buffer);
 								mVibrator.vibrate(50);
 							}
 							
@@ -579,13 +586,15 @@ public class BricksTer extends Activity {
 									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
 										// Clicked clockwise
 										buffer[0] = !mRedFlip.isChecked() ? RED_PWR_DOWN : RED_PWR_UP;
-										mSerialService.write(buffer);
+										for (BluetoothSerialService mSerialService : mSerialServices)
+					    					mSerialService.write(buffer);
 										mVibrator.vibrate(50);
 										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
 									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
 										// Clicked counter-clockwise
 										buffer[0] = !mRedFlip.isChecked() ? RED_PWR_UP : RED_PWR_DOWN;
-										mSerialService.write(buffer);
+										for (BluetoothSerialService mSerialService : mSerialServices)
+					    					mSerialService.write(buffer);
 										mVibrator.vibrate(50);
 										mRedPrevious[2] = Math.round(v.getRotation() / 45) * 45;
 									}
@@ -613,7 +622,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_DOWN:
 						if (mRedOn == null) {
 							buffer[0] = RED_STOP;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mRedOn = v;
 						}
@@ -665,7 +675,8 @@ public class BricksTer extends Activity {
 									// Clicked counter-clockwise
 									buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_UP : BLUE_PWR_DOWN;
 								}
-								mSerialService.write(buffer);
+								for (BluetoothSerialService mSerialService : mSerialServices)
+			    					mSerialService.write(buffer);
 								mVibrator.vibrate(50);
 							}
 							
@@ -695,13 +706,15 @@ public class BricksTer extends Activity {
 									if (dAngle > 0.0 && (rotationNew % 45 < rotationPrevious % 45)) {
 										// Clicked clockwise
 										buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_DOWN : BLUE_PWR_UP;
-										mSerialService.write(buffer);
+										for (BluetoothSerialService mSerialService : mSerialServices)
+					    					mSerialService.write(buffer);
 										mVibrator.vibrate(50);
 										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
 									} else if (dAngle < 0.0 && (rotationNew % 45 > rotationPrevious % 45)) {
 										// Clicked counter-clockwise
 										buffer[0] = !mBlueFlip.isChecked() ? BLUE_PWR_UP : BLUE_PWR_DOWN;
-										mSerialService.write(buffer);
+										for (BluetoothSerialService mSerialService : mSerialServices)
+					    					mSerialService.write(buffer);
 										mVibrator.vibrate(50);
 										mBluePrevious[2] = Math.round(v.getRotation() / 45) * 45;
 									}
@@ -729,7 +742,8 @@ public class BricksTer extends Activity {
 					case MotionEvent.ACTION_DOWN:
 						if (mBlueOn == null) {
 							buffer[0] = BLUE_STOP;
-							mSerialService.write(buffer);
+							for (BluetoothSerialService mSerialService : mSerialServices)
+		    					mSerialService.write(buffer);
 							mVibrator.vibrate(50);
 							mBlueOn = v;
 						}
@@ -806,13 +820,26 @@ public class BricksTer extends Activity {
         return val;
     }
     
+    private void pruneSerialServices() {
+    	for (int index = mSerialServices.size() - 1; index >= 0; --index) {
+    		int serviceState = getConnectionState(mSerialServices.get(index));
+    		if (serviceState != BluetoothSerialService.STATE_CONNECTED && serviceState != BluetoothSerialService.STATE_CONNECTING)
+    			mSerialServices.remove(index).stop();
+    	}
+    }
+    
 	public int getConnectionState() {
+		return mSerialServices.size();
+	}
+    
+	public int getConnectionState(BluetoothSerialService mSerialService) {
 		return mSerialService.getState();
 	}
 
 
     public void send(byte[] out) {
-    	mSerialService.write( out );
+    	for (BluetoothSerialService mSerialService : mSerialServices)
+    		mSerialService.write( out );
     }
     
     public void toggleKeyboard() {
@@ -827,40 +854,56 @@ public class BricksTer extends Activity {
     private final Handler mHandlerBT = new Handler() {
     	
         @Override
-        public void handleMessage(Message msg) {        	
+        public void handleMessage(Message msg) {
+        	String oldTitle = mTitle.getText().toString();
+        	
             switch (msg.what) {
             case MESSAGE_STATE_CHANGE:
                 if(DEBUG) Log.i(LOG_TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
                 switch (msg.arg1) {
                 case BluetoothSerialService.STATE_CONNECTED:
-                	if (mMenuItemConnect != null) {
-                		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-                		mMenuItemConnect.setTitle(R.string.disconnect);
-                	}
+//                	if (mMenuItemConnect != null) {
+//                		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+//                		mMenuItemConnect.setTitle(R.string.disconnect);
+//                	}
                 	
 //                	mInputManager.showSoftInput(mEmulatorView, InputMethodManager.SHOW_IMPLICIT);
                 	
-                    mTitle.setText(R.string.title_connected_to);
-                    mTitle.append(mConnectedDeviceName);
+                	if (oldTitle.startsWith(getResources().getString(R.string.title_connected_to))) {
+                		mTitle.append(", ");
+                		mTitle.append(msg.getData().getString(DEVICE_NAME));
+                	} else {
+	                    mTitle.setText(R.string.title_connected_to);
+	                    mTitle.append(msg.getData().getString(DEVICE_NAME));
+                	}
                     
-            		mConnectedDevicePrefs = getSharedPreferences(mConnectedDeviceName, Context.MODE_PRIVATE);
+            		mConnectedDevicePrefs = getSharedPreferences(msg.getData().getString(DEVICE_NAME), Context.MODE_PRIVATE);
             		updateDevicePrefs();
                     break;
                     
                 case BluetoothSerialService.STATE_CONNECTING:
-                    mTitle.setText(R.string.title_connecting);
+                	if (!oldTitle.startsWith(getResources().getString(R.string.title_connected_to)))
+                		mTitle.setText(R.string.title_connecting);
                     break;
                     
                 case BluetoothSerialService.STATE_LISTEN:
                 case BluetoothSerialService.STATE_NONE:
-                	if (mMenuItemConnect != null) {
-                		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_search);
-                		mMenuItemConnect.setTitle(R.string.connect);
-                	}
+//                	if (mMenuItemConnect != null) {
+//                		mMenuItemConnect.setIcon(android.R.drawable.ic_menu_search);
+//                		mMenuItemConnect.setTitle(R.string.connect);
+//                	}
 
 //            		mInputManager.hideSoftInputFromWindow(mEmulatorView.getWindowToken(), 0);
                 	
-                    mTitle.setText(R.string.title_not_connected);
+                	String dN = msg.getData().getString(DEVICE_NAME);
+                	oldTitle = oldTitle.replaceAll(", " + dN + "|" + dN + ", |" + dN, "");
+                	if (oldTitle.equals(getResources().getString(R.string.title_connected_to)))
+                		mTitle.setText(R.string.title_not_connected);
+                	else
+                		mTitle.setText(oldTitle);
+                    
+                    // Remove disconnected services
+                    pruneSerialServices();
 
                     mConnectedDevicePrefs = null;
                     updateDevicePrefs();
@@ -926,7 +969,9 @@ public class BricksTer extends Activity {
                 // Get the BLuetoothDevice object
                 BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
                 // Attempt to connect to the device
-                mSerialService.connect(device);                
+                BluetoothSerialService mSerialService = new BluetoothSerialService(getApplicationContext(), mHandlerBT);
+                mSerialService.connect(device);
+                mSerialServices.add(mSerialService);
             }
             break;
 
@@ -939,105 +984,105 @@ public class BricksTer extends Activity {
             }
         }
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (handleControlKey(keyCode, true)) {
-            return true;
-        } else if (isSystemKey(keyCode, event)) {
-            // Don't intercept the system keys
-            return super.onKeyDown(keyCode, event);
-        } else if (handleDPad(keyCode, true)) {
-            return true;
-        }
-
-        // Translate the keyCode into an ASCII character.
-        int letter = mKeyListener.keyDown(keyCode, event);
-
-        if (letter >= 0) {
-        	byte[] buffer = new byte[1];
-        	buffer[0] = (byte)letter;
-        	mSerialService.write(buffer);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (handleControlKey(keyCode, false)) {
-            return true;
-        } else if (isSystemKey(keyCode, event)) {
-            // Don't intercept the system keys
-            return super.onKeyUp(keyCode, event);
-        } else if (handleDPad(keyCode, false)) {
-            return true;
-        }
-
-        mKeyListener.keyUp(keyCode);
-        return true;
-    }
-
-    private boolean handleControlKey(int keyCode, boolean down) {
-        if (keyCode == mControlKeyCode) {
-            mKeyListener.handleControlKey(down);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Handle dpad left-right-up-down events. Don't handle
-     * dpad-center, that's our control key.
-     * @param keyCode
-     * @param down
-     */
-    private boolean handleDPad(int keyCode, boolean down) {
-    	byte[] buffer = new byte[1];
-
-        if (keyCode < KeyEvent.KEYCODE_DPAD_UP ||
-                keyCode > KeyEvent.KEYCODE_DPAD_CENTER) {
-            return false;
-        }
-
-        if (down) {
-            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-            	buffer[0] = '\r';
-            	mSerialService.write( buffer );
-            } else {
-                char code;
-                switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    code = 'A';
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    code = 'B';
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    code = 'D';
-                    break;
-                default:
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    code = 'C';
-                    break;
-                }
-            	buffer[0] = 27; // ESC
-            	mSerialService.write( buffer );                    
-//                if (mEmulatorView.getKeypadApplicationMode()) {
-//                	buffer[0] = 'O';
-//                	mSerialService.write( buffer );                    
-//                } else {
-                	buffer[0] = '[';
-                	mSerialService.write( buffer );                    
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (handleControlKey(keyCode, true)) {
+//            return true;
+//        } else if (isSystemKey(keyCode, event)) {
+//            // Don't intercept the system keys
+//            return super.onKeyDown(keyCode, event);
+//        } else if (handleDPad(keyCode, true)) {
+//            return true;
+//        }
+//
+//        // Translate the keyCode into an ASCII character.
+//        int letter = mKeyListener.keyDown(keyCode, event);
+//
+//        if (letter >= 0) {
+//        	byte[] buffer = new byte[1];
+//        	buffer[0] = (byte)letter;
+//        	mSerialService.write(buffer);
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        if (handleControlKey(keyCode, false)) {
+//            return true;
+//        } else if (isSystemKey(keyCode, event)) {
+//            // Don't intercept the system keys
+//            return super.onKeyUp(keyCode, event);
+//        } else if (handleDPad(keyCode, false)) {
+//            return true;
+//        }
+//
+//        mKeyListener.keyUp(keyCode);
+//        return true;
+//    }
+//
+//    private boolean handleControlKey(int keyCode, boolean down) {
+//        if (keyCode == mControlKeyCode) {
+//            mKeyListener.handleControlKey(down);
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    /**
+//     * Handle dpad left-right-up-down events. Don't handle
+//     * dpad-center, that's our control key.
+//     * @param keyCode
+//     * @param down
+//     */
+//    private boolean handleDPad(int keyCode, boolean down) {
+//    	byte[] buffer = new byte[1];
+//
+//        if (keyCode < KeyEvent.KEYCODE_DPAD_UP ||
+//                keyCode > KeyEvent.KEYCODE_DPAD_CENTER) {
+//            return false;
+//        }
+//
+//        if (down) {
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+//            	buffer[0] = '\r';
+//            	mSerialService.write( buffer );
+//            } else {
+//                char code;
+//                switch (keyCode) {
+//                case KeyEvent.KEYCODE_DPAD_UP:
+//                    code = 'A';
+//                    break;
+//                case KeyEvent.KEYCODE_DPAD_DOWN:
+//                    code = 'B';
+//                    break;
+//                case KeyEvent.KEYCODE_DPAD_LEFT:
+//                    code = 'D';
+//                    break;
+//                default:
+//                case KeyEvent.KEYCODE_DPAD_RIGHT:
+//                    code = 'C';
+//                    break;
 //                }
-            	buffer[0] = (byte)code;
-            	mSerialService.write( buffer );                    
-            }
-        }
-        return true;
-    }
-
-    private boolean isSystemKey(int keyCode, KeyEvent event) {
-        return event.isSystem();
-    }
+//            	buffer[0] = 27; // ESC
+//            	mSerialService.write( buffer );                    
+////                if (mEmulatorView.getKeypadApplicationMode()) {
+////                	buffer[0] = 'O';
+////                	mSerialService.write( buffer );                    
+////                } else {
+//                	buffer[0] = '[';
+//                	mSerialService.write( buffer );                    
+////                }
+//            	buffer[0] = (byte)code;
+//            	mSerialService.write( buffer );                    
+//            }
+//        }
+//        return true;
+//    }
+//
+//    private boolean isSystemKey(int keyCode, KeyEvent event) {
+//        return event.isSystem();
+//    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -1067,18 +1112,14 @@ public class BricksTer extends Activity {
         	}
         	return true;
         case R.id.connect:
-        	
-        	if (getConnectionState() == BluetoothSerialService.STATE_NONE) {
-        		// Launch the DeviceListActivity to see devices and do scan
-        		Intent serverIntent = new Intent(this, DeviceListActivity.class);
-        		startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-        	}
-        	else
-            	if (getConnectionState() == BluetoothSerialService.STATE_CONNECTED) {
-            		mSerialService.stop();
-		    		mSerialService.start();
-            	}
+    		// Launch the DeviceListActivity to see devices and do scan
+    		Intent serverIntent = new Intent(this, DeviceListActivity.class);
+    		startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
             return true;
+        case R.id.disconnect:
+        	while (!mSerialServices.isEmpty())
+    			mSerialServices.remove(mSerialServices.size() - 1).stop();
+        	return true;
         case R.id.preferences:
         	doPreferences();
             return true;

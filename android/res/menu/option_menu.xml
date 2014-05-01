@@ -21,12 +21,16 @@
     <item android:id="@+id/connect"
           android:icon="@android:drawable/ic_menu_search"
           android:title="@string/connect" />
+    <item android:id="@+id/disconnect"
+          android:icon="@android:drawable/ic_menu_close_clear_cancel"
+          android:title="@string/disconnect" />
     <item android:id="@+id/preferences"
           android:icon="@android:drawable/ic_menu_preferences"
           android:title="@string/preferences" />
     <item android:id="@+id/menu_special_keys"
           android:icon="@android:drawable/ic_menu_info_details"
-    	  android:title="@string/special_keys" />          
+    	  android:title="@string/special_keys" />
+              
 </menu>
 
 

@@ -26,7 +26,7 @@
 
     <!-- Options Menu -->
     <string name="connect">Connect device</string>
-    <string name="disconnect">Disconnect device</string>
+    <string name="disconnect">Disconnect devices</string>
     <string name="preferences">Preferences</string>    
     <string name="special_keys">Special keys</string>
     

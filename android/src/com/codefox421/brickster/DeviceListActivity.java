@@ -16,6 +16,7 @@
 
 package com.codefox421.brickster;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import android.app.Activity;
@@ -55,6 +56,7 @@ public class DeviceListActivity extends Activity {
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
+    private ArrayList<String> mDeviceAddresses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
