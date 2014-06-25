@@ -15,90 +15,105 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="false"
     android:splitMotionEvents="true" >
 
-    <ImageView
-        android:id="@+id/background_momentary"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="false"
-        android:contentDescription="@string/title_momentary"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:longClickable="false"
-        android:scaleType="centerInside"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:src="@drawable/bg_momentary" />
-    
-    <TextView android:id="@+id/title_right_text"
-        android:layout_centerHorizontal="true"
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:id="@+id/background_momentary"
+            android:layout_width="286dp"
+            android:layout_height="460dp"
+            android:clickable="false"
+            android:contentDescription="@string/title_momentary"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:longClickable="false"
+            android:scaleType="centerInside"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:src="@drawable/bg_momentary" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/title_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:ellipsize="end"
         android:singleLine="true"
+        android:textColor="#fff" />
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-    />
+        android:layout_centerInParent="true" >
 
-    <Button
-        android:id="@+id/button_red_fwd"
-        android:layout_width="78dp"
-        android:layout_height="72dp"
-        android:layout_alignLeft="@+id/background_momentary"
-        android:layout_alignTop="@+id/background_momentary"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="150dp"
-        android:background="@android:color/transparent"
-        android:longClickable="false" />
+        <View
+            android:id="@+id/spacer_view_momentary"
+            android:layout_width="20dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/button_red_rev"
-        android:layout_width="78dp"
-        android:layout_height="72dp"
-        android:layout_alignLeft="@+id/button_red_fwd"
-        android:layout_below="@+id/button_red_fwd"
-        android:layout_marginTop="9dp"
-        android:background="@android:color/transparent"
-        android:longClickable="false" />
+        <Button
+            android:id="@+id/button_red_fwd"
+            android:layout_width="58dp"
+            android:layout_height="64dp"
+            android:layout_below="@+id/spacer_view_momentary"
+            android:background="@android:color/transparent"
+            android:longClickable="false" />
 
-    <Button
-        android:id="@+id/button_blue_fwd"
-        android:layout_width="78dp"
-        android:layout_height="72dp"
-        android:layout_alignRight="@+id/background_momentary"
-        android:layout_alignTop="@+id/background_momentary"
-        android:layout_marginRight="89dp"
-        android:layout_marginTop="150dp"
-        android:background="@android:color/transparent"
-        android:longClickable="false" />
+        <Button
+            android:id="@+id/button_red_rev"
+            android:layout_width="58dp"
+            android:layout_height="64dp"
+            android:layout_below="@+id/button_red_fwd"
+            android:layout_alignRight="@+id/button_red_fwd"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:longClickable="false" />
 
-    <Button
-        android:id="@+id/button_blue_rev"
-        android:layout_width="78dp"
-        android:layout_height="72dp"
-        android:layout_alignBottom="@+id/button_red_rev"
-        android:layout_alignLeft="@+id/button_blue_fwd"
-        android:background="@android:color/transparent"
-        android:longClickable="false" />
+        <Button
+            android:id="@+id/button_blue_fwd"
+            android:layout_width="58dp"
+            android:layout_height="64dp"
+            android:layout_alignTop="@+id/button_red_fwd"
+            android:layout_toRightOf="@+id/button_red_fwd"
+            android:layout_marginLeft="24dp"
+            android:background="@android:color/transparent"
+            android:longClickable="false" />
 
-    <CheckBox
-        android:id="@+id/check_red_flip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button_red_rev"
-        android:layout_below="@+id/button_red_rev"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="72.5dp" />
+        <Button
+            android:id="@+id/button_blue_rev"
+            android:layout_width="58dp"
+            android:layout_height="64dp"
+            android:layout_alignTop="@+id/button_red_rev"
+            android:layout_alignLeft="@+id/button_blue_fwd"
+            android:background="@android:color/transparent"
+            android:longClickable="false" />
 
-    <CheckBox
-        android:id="@+id/check_blue_flip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button_blue_rev"
-        android:layout_below="@+id/button_blue_rev"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="72.5dp" />
-        
+        <CheckBox
+            android:id="@+id/check_red_flip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_red_rev"
+            android:layout_alignRight="@+id/button_red_rev"
+            android:layout_marginTop="61dp"
+            android:layout_marginRight="25dp" />
+
+        <CheckBox
+            android:id="@+id/check_blue_flip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/check_red_flip"
+            android:layout_alignLeft="@+id/button_blue_rev"
+            android:layout_marginLeft="25dp" />
+
+    </RelativeLayout>
+
 </RelativeLayout>
-
 <!-- /LinearLayout-->
