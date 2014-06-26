@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.Window;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
@@ -208,9 +207,6 @@ public class BricksTer extends Activity {
         CONTROL_KEY_NAME = getResources().getStringArray(R.array.entries_controlkey_preference);
 
     	mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        // Set up the custom title
-        mTitle = (TextView) findViewById(R.id.title_right_text);
         
 
         
@@ -353,7 +349,7 @@ public class BricksTer extends Activity {
 //	}
 	
 	private void setupMomentaryGui() {
-		CharSequence oldTitle = mTitle.getText();
+		CharSequence oldTitle = (mTitle != null ? mTitle.getText() : "");
 		boolean oldRedFlip = (mConnectedDevicePrefs != null && 
 				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false)) ||
 				(mRedFlip != null && mRedFlip.isChecked());
@@ -502,7 +498,7 @@ public class BricksTer extends Activity {
 	}
 	
 	private void setupSpeedGui() {
-		CharSequence oldTitle = mTitle.getText();
+		CharSequence oldTitle = (mTitle != null ? mTitle.getText() : "");
 		boolean oldRedFlip = (mConnectedDevicePrefs != null && 
 				mConnectedDevicePrefs.getBoolean(Integer.valueOf(R.id.check_red_flip).toString(), false)) ||
 				(mRedFlip != null && mRedFlip.isChecked());
