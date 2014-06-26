@@ -207,10 +207,7 @@ public class BricksTer extends Activity {
 
         CONTROL_KEY_NAME = getResources().getStringArray(R.array.entries_controlkey_preference);
 
-    	mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);		
-		
-        // Set up the window layout
-        setContentView(R.layout.main);
+    	mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // Set up the custom title
         mTitle = (TextView) findViewById(R.id.title_right_text);
@@ -237,6 +234,7 @@ public class BricksTer extends Activity {
 //        mEmulatorView.requestFocus();
 //        mEmulatorView.register(mKeyListener);
 		
+		// Set up the window layout
 		setupMomentaryGui();
 
 //        mSerialServices.add(new BluetoothSerialService(this, mHandlerBT/*, mEmulatorView*/));
@@ -919,7 +917,7 @@ public class BricksTer extends Activity {
                 break;
              
             case MESSAGE_READ:
-                byte[] readBuf = (byte[]) msg.obj;              
+                byte[] readBuf = (byte[]) msg.obj;
 //                mEmulatorView.write(readBuf, msg.arg1);
                 Toast.makeText(getApplicationContext(), new String(readBuf), Toast.LENGTH_SHORT).show();
                 
@@ -937,7 +935,7 @@ public class BricksTer extends Activity {
                 break;
             }
         }
-    };    
+    };
 
     
     public void finishDialogNoBluetooth() {
@@ -952,7 +950,7 @@ public class BricksTer extends Activity {
                 	   }
                });
         AlertDialog alert = builder.create();
-        alert.show(); 
+        alert.show();
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -980,7 +978,7 @@ public class BricksTer extends Activity {
             if (resultCode == Activity.RESULT_OK) {
                 Log.d(LOG_TAG, "BT not enabled");
                 
-                finishDialogNoBluetooth();                
+                finishDialogNoBluetooth();
             }
         }
     }
@@ -1065,16 +1063,16 @@ public class BricksTer extends Activity {
 //                    break;
 //                }
 //            	buffer[0] = 27; // ESC
-//            	mSerialService.write( buffer );                    
+//            	mSerialService.write( buffer );
 ////                if (mEmulatorView.getKeypadApplicationMode()) {
 ////                	buffer[0] = 'O';
-////                	mSerialService.write( buffer );                    
+////                	mSerialService.write( buffer );
 ////                } else {
 //                	buffer[0] = '[';
-//                	mSerialService.write( buffer );                    
+//                	mSerialService.write( buffer );
 ////                }
 //            	buffer[0] = (byte)code;
-//            	mSerialService.write( buffer );                    
+//            	mSerialService.write( buffer );
 //            }
 //        }
 //        return true;
@@ -3326,7 +3324,7 @@ class EmulatorView extends View implements GestureDetector.OnGestureListener {
                 + "\015\177" // enter, del
                 + "`-=[]\\;'/@"
                 + "\000\000\000"
-                + "+";            
+                + "+";
 
             @Override
             public boolean setComposingText(CharSequence text, int newCursorPosition) {
@@ -3614,7 +3612,7 @@ class EmulatorView extends View implements GestureDetector.OnGestureListener {
               updateSize( w, h );
             }
         }
-    }    
+    }
 
     /**
      * Look for new input from the ptty, send it to the terminal emulator.
