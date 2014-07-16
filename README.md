@@ -3,9 +3,9 @@ BricksTer
 
 LEGO bricks controlled from terminal.
 
-[![Build Status](https://travis-ci.org/codefox421/brickster.png?branch=master)](https://travis-ci.org/codefox421/brickster)
+### Notice
 
-This project is still under development and in a prototyping stage. Please watch these demonstrations on YouTube to learn more:
+[BricksTer has moved to BTbricks. Please follow this link for the list of new repositories.](https://github.com/BTbricks)
 
 #### Android GUI (based on 8879 LEGO Power Functions Speed Remote Control)
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Lc0wewJmFzc
